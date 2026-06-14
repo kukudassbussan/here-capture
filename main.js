@@ -127,30 +127,51 @@ function displayResult(imgUrl, targetUrl) {
 
 /**
  * Downloads the current screenshot.
- * This function now constructs a special download URL with the Microlink API
- * to bypass browser CORS restrictions that prevent direct fetching of the image blob.
+ * Uses a Blob-based approach to bypass cross-origin restrictions.
+ * Microlink API with embed=screenshot.url provides Access-Control-Allow-Origin: *
  */
-function downloadScreenshot() {
+async function downloadScreenshot() {
     if (!currentTargetUrl) {
         showError('No active capture to download.');
         return;
     }
 
     try {
-        // Construct the API call with the 'download' parameter to trigger a file download.
-        const downloadApiUrl = `${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&download=true`;
+        downloadBtn.disabled = true;
+        downloadBtn.textContent = '다운로드 중...';
+        
+        // Use the Microlink API to get the image directly with CORS headers enabled
+        const downloadApiUrl = `${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&embed=screenshot.url`;
 
+        const response = await fetch(downloadApiUrl);
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        
         const a = document.createElement('a');
-        a.href = downloadApiUrl;
-        a.download = `screenshot-${new URL(currentTargetUrl).hostname}.png`;
+        a.style.display = 'none';
+        a.href = url;
+        // Generate a clean filename
+        const filename = `screenshot-${new URL(currentTargetUrl).hostname.replace(/\./g, '-')}.png`;
+        a.download = filename;
+        
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
+        
+        // Cleanup
+        setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }, 100);
+        
         hideError();
-
     } catch (err) {
-        console.error('Download setup failed:', err);
-        showError('Failed to create download link. Please try again.');
+        console.error('Download failed:', err);
+        showError('다운로드에 실패했습니다. 이미지 위에서 마우스 오른쪽 버튼을 클릭하여 "이미지를 다른 이름으로 저장"을 선택해 주세요.');
+    } finally {
+        downloadBtn.disabled = false;
+        downloadBtn.textContent = '다운로드';
     }
 }
 
