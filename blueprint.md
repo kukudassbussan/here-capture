@@ -12,6 +12,7 @@ A modern web application designed to capture full-page screenshots of websites v
     - **Capture Engine:** Utilizes Microlink API for high-resolution snapshots. Optimized for community sites (DC Inside, Femco) by handling dynamic content and hiding overlays.
     - **Gallery View:** Displays the captured screenshot in a polished frame.
     - **Persistence:** Remembers recent captures for quick access using localStorage.
+    - **Monetization:** Integrated Google AdSense for sustainable development.
 
 ### Technical Stack
 - **HTML5:** Semantic structure.
