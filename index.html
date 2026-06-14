@@ -1,14 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture | URL to Screenshot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="main.js" defer></script>
 </head>
-<body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+<body class="midnight-aura">
+    <div class="background-texture"></div>
+    
+    <main class="app-container">
+        <header class="hero">
+            <h1 class="hero-title">Capture the <span class="gradient-text">Web</span></h1>
+            <p class="hero-subtitle">High-quality full-page screenshots in a single click.</p>
+        </header>
+
+        <section class="capture-section">
+            <div class="input-group">
+                <input type="url" id="url-input" placeholder="Enter website URL (e.g., https://google.com)" aria-label="Website URL">
+                <button id="capture-btn" class="primary-btn">
+                    <span class="btn-text">Capture</span>
+                    <span class="loader hidden"></span>
+                </button>
+            </div>
+            <div id="error-message" class="error-msg hidden"></div>
+        </section>
+
+        <section id="result-section" class="result-section hidden">
+            <div class="result-card">
+                <div class="card-header">
+                    <h3 id="result-title">Screenshot Preview</h3>
+                    <div class="actions">
+                        <button id="download-btn" class="secondary-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="screenshot-img" src="" alt="Captured Screenshot">
+                </div>
+            </div>
+        </section>
+
+        <section id="history-section" class="history-section">
+            <h2 class="section-title">Recent Captures</h2>
+            <div id="history-grid" class="history-grid">
+                <!-- History items will be injected here -->
+                <p class="empty-state">No captures yet. Start by entering a URL above!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Powered by Microlink API • 2026</p>
+    </footer>
 </body>
 </html>
