@@ -50,10 +50,13 @@ async function handleCapture() {
     
     try {
         const targetUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=3000`;
+        // Optimization for community sites:
+        // - fullPage: true for entire thread
+        // - waitFor: 5000 (wait for dynamic content/ads to settle)
+        // - hide: banners/modals that might block content
+        // - animations: true to ensure everything is rendered
+        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=5000&animations=true&hide=cookie-banner,.modal,.popup`;
         
-        // We fetch the metadata first to confirm it works, or just set the img src directly.
-        // Microlink returns the image directly if we use the right parameters, but let's use their API response.
         const response = await fetch(screenshotUrl);
         const data = await response.json();
         
