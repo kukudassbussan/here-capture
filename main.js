@@ -51,9 +51,9 @@ async function handleCapture() {
     
     try {
         const targetUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-        // Removed 'proxy' and 'headers' parameters as they require a Pro plan.
-        // Added some common community site selectors to the 'hide' parameter.
-        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot`;
+        // Fixed clipping issue (e.g., Clien.net) by setting explicit viewport width and scale factor.
+        // deviceScaleFactor=1 ensures the width matches the intended pixels exactly.
+        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&viewport.width=1400&viewport.deviceScaleFactor=1`;
         
         const response = await fetch(screenshotUrl);
         const data = await response.json();
@@ -140,8 +140,8 @@ async function downloadScreenshot() {
         downloadBtn.disabled = true;
         downloadBtn.textContent = '다운로드 중...';
         
-        // Use the Microlink API to get the image directly with CORS headers enabled
-        const downloadApiUrl = `${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&embed=screenshot.url`;
+        // Consistent viewport settings for download as well
+        const downloadApiUrl = `${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&embed=screenshot.url&viewport.width=1400&viewport.deviceScaleFactor=1`;
 
         const response = await fetch(downloadApiUrl);
         if (!response.ok) throw new Error('Network response was not ok');
