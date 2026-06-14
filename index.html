@@ -43,7 +43,22 @@
             <div id="error-message" class="error-msg hidden"></div>
         </section>
 
-        <!-- History Section moved under URL input -->
+        <!-- Result Section moved above History -->
+        <section id="result-section" class="result-section hidden">
+            <div class="result-card">
+                <div class="card-header">
+                    <h3 id="result-title">스크린샷 미리보기</h3>
+                    <div class="actions">
+                        <button id="download-btn" class="secondary-btn">다운로드</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="screenshot-img" src="" alt="Captured Screenshot">
+                </div>
+            </div>
+        </section>
+
+        <!-- History Section -->
         <section id="history-section" class="history-section">
             <h2 class="section-title">최근 캡처 내역</h2>
             <div id="history-grid" class="history-grid">
@@ -81,20 +96,6 @@
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-        </section>
-
-        <section id="result-section" class="result-section hidden">
-            <div class="result-card">
-                <div class="card-header">
-                    <h3 id="result-title">스크린샷 미리보기</h3>
-                    <div class="actions">
-                        <button id="download-btn" class="secondary-btn">다운로드</button>
-                    </div>
-                </div>
-                <div class="image-container">
-                    <img id="screenshot-img" src="" alt="Captured Screenshot">
-                </div>
-            </div>
         </section>
 
         <article class="info-article">
