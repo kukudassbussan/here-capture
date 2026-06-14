@@ -18,6 +18,7 @@ const historyGrid = document.getElementById('history-grid');
 
 // State
 let currentCaptureUrl = '';
+let currentTargetUrl = ''; // Keep track of the original URL for download
 let history = JSON.parse(localStorage.getItem('capture_history') || '[]');
 
 /**
@@ -50,12 +51,9 @@ async function handleCapture() {
     
     try {
         const targetUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-        // Optimization for community sites:
-        // - fullPage: true for entire thread
-        // - waitFor: 5000 (wait for dynamic content/ads to settle)
-        // - hide: banners/modals that might block content
-        // - animations: true to ensure everything is rendered
-        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=5000&animations=true&hide=cookie-banner,.modal,.popup`;
+        // Removed 'proxy' and 'headers' parameters as they require a Pro plan.
+        // Added some common community site selectors to the 'hide' parameter.
+        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot`;
         
         const response = await fetch(screenshotUrl);
         const data = await response.json();
@@ -69,7 +67,7 @@ async function handleCapture() {
         }
     } catch (err) {
         console.error('Capture error:', err);
-        showError('Could not capture the site. Please check the URL and try again.');
+        showError('Could not capture the site. This may be due to bot protection or API limits. Please try again in a moment.');
     } finally {
         setLoading(false);
     }
@@ -80,7 +78,6 @@ async function handleCapture() {
  */
 function isValidUrl(string) {
     try {
-        // Basic check for protocol or just a domain-like string
         if (!string.includes('.')) return false;
         return true;
     } catch (_) {
@@ -122,31 +119,38 @@ function hideError() {
  */
 function displayResult(imgUrl, targetUrl) {
     currentCaptureUrl = imgUrl;
+    currentTargetUrl = targetUrl; // Save the original URL
     resultImg.src = imgUrl;
     resultSection.classList.remove('hidden');
     resultSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 /**
- * Downloads the current screenshot
+ * Downloads the current screenshot.
+ * This function now constructs a special download URL with the Microlink API
+ * to bypass browser CORS restrictions that prevent direct fetching of the image blob.
  */
-async function downloadScreenshot() {
-    if (!currentCaptureUrl) return;
-    
+function downloadScreenshot() {
+    if (!currentTargetUrl) {
+        showError('No active capture to download.');
+        return;
+    }
+
     try {
-        const response = await fetch(currentCaptureUrl);
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
+        // Construct the API call with the 'download' parameter to trigger a file download.
+        const downloadApiUrl = `${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&download=true`;
+
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `screenshot-${Date.now()}.png`;
+        a.href = downloadApiUrl;
+        a.download = `screenshot-${new URL(currentTargetUrl).hostname}.png`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+        hideError();
+
     } catch (err) {
-        console.error('Download failed:', err);
-        showError('Download failed. Try right-clicking the image to save.');
+        console.error('Download setup failed:', err);
+        showError('Failed to create download link. Please try again.');
     }
 }
 
@@ -161,11 +165,9 @@ function addToHistory(imgUrl, targetUrl) {
         date: new Date().toLocaleDateString()
     };
     
-    // Check if URL already exists in history, if so remove old one
     history = history.filter(h => h.url !== targetUrl);
     history.unshift(item);
     
-    // Keep only last 12
     if (history.length > 12) history.pop();
     
     localStorage.setItem('capture_history', JSON.stringify(history));
@@ -191,7 +193,6 @@ function renderHistory() {
         </div>
     `).join('');
     
-    // Add click listeners to history items
     document.querySelectorAll('.history-item').forEach(el => {
         el.addEventListener('click', () => {
             const id = parseInt(el.dataset.id);
