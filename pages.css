@@ -182,7 +182,10 @@
 
 .dc-icon { background: #3b5998; }
 .naver-icon { background: #03cf5d; }
-.google-icon { background: linear-gradient(135deg, #4285F4, #34A853, #FBBC05, #EA4335); }
+.youtube-icon { background: #FF0000; }
+.instiz-icon { background: #1DB954; }
+.ddanzi-icon { background: #4b4b4b; }
+.clien-icon { background: #1a2a3a; }
 
 .site-name {
     font-size: 0.95rem;
