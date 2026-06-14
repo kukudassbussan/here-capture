@@ -137,6 +137,60 @@
     font-size: 0.95rem;
 }
 
+/* Supported Sites Section */
+.supported-sites {
+    margin-top: var(--space-xl);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.site-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-md);
+}
+
+.site-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.site-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.site-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.dc-icon { background: #3b5998; }
+.naver-icon { background: #03cf5d; }
+.fm-icon { background: #2c3e50; }
+.google-icon { background: linear-gradient(135deg, #4285F4, #34A853, #FBBC05, #EA4335); }
+
+.site-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
 /* Header & Footer Enhancements */
 .main-header {
     display: flex;
