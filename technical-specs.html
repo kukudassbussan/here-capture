@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기술 명세 및 헤드리스 렌더링 엔진 분석 - URL Capture</title>
+    <meta name="description" content="URL Capture가 어떻게 고화질 웹 캡처를 생성하는지, 헤드리스 브라우저 기술과 렌더링 엔진의 작동 원리를 심층적으로 분석합니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+<body class="midnight-aura">
+    <div class="background-texture"></div>
+
+    <header class="main-header">
+        <div class="logo">URL Capture</div>
+        <nav class="main-nav">
+            <a href="index.html">홈</a>
+            <a href="guides.html" class="active">가이드</a>
+            <a href="about.html">회사 소개</a>
+            <a href="contact.html">문의하기</a>
+        </nav>
+    </header>
+
+    <main class="page-content">
+        <article class="article-container">
+            <header class="article-header">
+                <span class="category">기술 백서</span>
+                <h1>기술 명세: 헤드리스 렌더링 엔진의 작동 원리</h1>
+                <div class="author-info">
+                    <p>작성일: 2024년 6월 15일 | 작성자: URL Capture 엔지니어링 팀</p>
+                </div>
+            </header>
+
+            <section class="article-body">
+                <h2>1. 헤드리스 브라우저(Headless Browser)란?</h2>
+                <p>헤드리스 브라우저는 디스플레이 장치(모니터)나 GUI 없이 실행되는 웹 브라우저입니다. 일반적인 브라우저처럼 HTML을 파싱하고, CSS를 적용하며, 자바스크립트를 실행하지만, 그 결과물을 화면에 띄우는 대신 메모리상에서 처리합니다. URL Capture는 최신 Chromium 기반의 엔진을 사용하여 사용자가 보는 화면과 동일한 결과물을 생성합니다.</p>
+                
+                <h2>2. 렌더링 파이프라인 (Rendering Pipeline)</h2>
+                <p>사용자가 URL을 입력한 순간부터 이미지가 생성되기까지의 과정은 다음과 같습니다.</p>
+                <ol>
+                    <li><strong>요청 수신:</strong> 백엔드 서버가 캡처할 URL과 매개변수(해상도, 대기 시간 등)를 수신합니다.</li>
+                    <li><strong>브라우저 인스턴스 생성:</strong> 격리된 환경에서 새로운 헤드리스 브라우저 컨텍스트를 실행합니다.</li>
+                    <li><strong>네트워크 유휴 상태 대기:</strong> 모든 자산(이미지, 스크립트, 웹 폰트)이 완전히 로드될 때까지 `networkidle` 상태를 모니터링합니다.</li>
+                    <li><strong>DOM 및 CSSOM 생성:</strong> 브라우저 엔진이 페이지 구조와 스타일을 계산합니다.</li>
+                    <li><strong>자바스크립트 실행:</strong> 동적으로 생성되는 콘텐츠나 애니메이션이 완료될 수 있도록 추가적인 대기 시간을 가집니다.</li>
+                    <li><strong>스크린샷 명령 실행:</strong> 페이지의 전체 높이를 계산하여 가상 캔버스에 픽셀 데이터를 씁니다.</li>
+                </ol>
+
+                <div class="info-box">
+                    <h3>🛠 기술적 도전 과제: 동적 레이아웃</h3>
+                    <p>현대적인 웹은 스크롤에 따라 나타나는 요소(Lazy Loading)가 많습니다. URL Capture는 캡처 전 페이지 하단까지 가상으로 스크롤하여 모든 요소를 활성화한 후 렌더링을 시작하는 고급 알고리즘을 사용합니다.</p>
+                </div>
+
+                <h2>3. 스마트 필터링 시스템</h2>
+                <p>우리는 캡처의 가치를 높이기 위해 불필요한 노이즈를 제거합니다. CSS 셀렉터 기반의 블랙리스트와 휴리스틱 분석을 통해 다음과 같은 요소를 식별하고 감춥니다.</p>
+                <ul>
+                    <li>쿠키 수집 동의 팝업 (GDPR/CCPA 배너)</li>
+                    <li>부유형 광고 (Floating Ads)</li>
+                    <li>구독 유도 모달창</li>
+                    <li>고정 내비게이션 바 (전체 페이지 캡처 시 반복 방지 옵션)</li>
+                </ul>
+
+                <h2>4. 보안 및 인프라</h2>
+                <p>모든 캡처 작업은 샌드박스(Sandbox) 환경에서 수행됩니다. 사용자의 요청이 서버의 다른 프로세스에 영향을 주지 않도록 철저히 격리하며, 캡처가 완료된 인스턴스는 즉시 폐기하여 데이터 유출을 방지합니다.</p>
+
+                <h2>결론: 기술로 완성하는 웹의 기록</h2>
+                <p>URL Capture는 단순히 '화면을 찍는' 도구가 아닙니다. 복잡한 웹 기술의 결과물을 가장 정확하고 안전하게 보존하기 위한 정밀한 엔지니어링의 산물입니다. 우리는 더 빠르고 정확한 렌더링을 위해 엔진을 지속적으로 고도화하고 있습니다.</p>
+            </section>
+        </article>
+
+        <section class="related-articles">
+            <h3>함께 읽어보면 좋은 글</h3>
+            <div class="article-grid">
+                <a href="archiving-guide.html" class="article-card">디지털 아카이빙의 중요성</a>
+                <a href="design-reference-guide.html" class="article-card">디자인 레퍼런스 수집법</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-nav">
+            <a href="index.html">홈으로</a>
+            <a href="privacy.html">개인정보 처리방침</a>
+            <a href="terms.html">이용 약관</a>
+        </div>
+        <p>&copy; 2024 URL Capture. All rights reserved.</p>
+    </footer>
+</body>
+</html>

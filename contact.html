@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문의하기 - URL Capture</title>
+    <meta name="description" content="URL Capture 서비스 이용 중 궁금한 점이나 제안 사항이 있으신가요? 고객 지원팀에 문의해 주세요.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
@@ -17,23 +18,73 @@
         <div class="logo">URL Capture</div>
         <nav class="main-nav">
             <a href="index.html">홈</a>
+            <a href="guides.html">가이드</a>
             <a href="about.html">회사 소개</a>
-            <a href="contact.html">문의하기</a>
+            <a href="contact.html" class="active">문의하기</a>
         </nav>
     </header>
 
     <main class="page-content">
-        <h1>문의하기</h1>
-        <p>URL Capture 서비스를 이용해 주셔서 감사합니다. 서비스 이용 중 불편한 점이 있거나, 개선 제안, 비즈니스 협업 문의가 있으시면 언제든지 아래 연락처로 문의해 주세요. 저희 팀이 확인 후 영업일 기준 24시간 이내에 답변을 드릴 수 있도록 노력하겠습니다.</p>
-        
-        <p><strong>이메일 문의:</strong> <a href="mailto:mujeom291@gmail.com" style="color: var(--accent-secondary);">mujeom291@gmail.com</a></p>
+        <header class="page-header">
+            <h1>고객 지원 및 문의</h1>
+            <p class="subtitle">서비스 개선을 위한 여러분의 의견을 기다립니다.</p>
+        </header>
 
-        <h2>자주 하는 문의</h2>
-        <p>문의하시기 전 <a href="index.html#faq" style="color: var(--accent-primary);">홈페이지 하단의 FAQ</a> 섹션을 먼저 확인하시면 더 빠르게 답을 얻으실 수 있습니다.</p>
+        <section class="contact-grid">
+            <div class="contact-info">
+                <h2>어떻게 도와드릴까요?</h2>
+                <p>URL Capture는 사용자 여러분의 피드백을 통해 성장합니다. 버그 제보, 기능 제안, 비즈니스 협업 등 모든 문의를 환영합니다.</p>
+                
+                <div class="contact-methods">
+                    <div class="method-item">
+                        <h3>📧 이메일 문의</h3>
+                        <p>mujeom291@gmail.com</p>
+                        <span>(일반 서비스 이용 및 기술 지원)</span>
+                    </div>
+                    <div class="method-item">
+                        <h3>💼 비즈니스 및 광고</h3>
+                        <p>mujeom291@gmail.com</p>
+                        <span>(제휴 및 광고 게재 문의)</span>
+                    </div>
+                </div>
 
-        <div style="margin-top: var(--space-lg); padding: var(--space-md); background: rgba(255,255,255,0.05); border-radius: var(--radius-md); font-size: 0.9rem;">
-            <p>※ 광고 및 제휴 문의는 제목에 [제휴] 말머리를 달아주시면 담당 부서로 빠르게 전달됩니다.</p>
-        </div>
+                <div class="support-policy">
+                    <h3>운영 시간 및 안내</h3>
+                    <ul>
+                        <li><strong>응대 시간:</strong> 평일 10:00 - 18:00 (KST)</li>
+                        <li><strong>예상 답변 시간:</strong> 영업일 기준 24~48시간 이내</li>
+                        <li><strong>긴급 문의:</strong> 버그 제보 시 해당 URL과 발생 상황을 상세히 적어주시면 빠른 처리가 가능합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">이름 / 닉네임</label>
+                        <input type="text" id="name" placeholder="이름을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일 주소</label>
+                        <input type="email" id="email" placeholder="답변받을 이메일을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">문의 유형</label>
+                        <select id="category">
+                            <option value="bug">버그 제보 / 오류 신고</option>
+                            <option value="feature">기능 제안</option>
+                            <option value="business">비즈니스 협업</option>
+                            <option value="other">기타 문의</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용</label>
+                        <textarea id="message" rows="6" placeholder="상세한 내용을 입력해 주세요"></textarea>
+                    </div>
+                    <button type="button" class="primary-btn" onclick="alert('문의가 접수되었습니다. (데모)')">문의 보내기</button>
+                </form>
+            </div>
+        </section>
     </main>
 
     <footer class="main-footer">
