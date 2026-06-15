@@ -32,8 +32,40 @@ function init() {
         if (e.key === 'Enter') handleCapture();
     });
     
+    // Listen for paste events to auto-capture
+    urlInput.addEventListener('paste', handlePaste);
+    
     downloadBtn.addEventListener('click', downloadScreenshot);
 }
+
+/**
+ * Handles the paste event on the URL input.
+ */
+async function handlePaste(e) {
+    // Prevent the default paste action
+    e.preventDefault();
+    
+    try {
+        // Ask for permission and read from clipboard
+        const text = await navigator.clipboard.readText();
+        
+        if (text) {
+            urlInput.value = text;
+            // Automatically trigger capture after paste
+            handleCapture();
+        }
+    } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+        // Fallback for browsers that might not support it or if permission is denied
+        // The default paste action was prevented, so we manually insert the text.
+        const pastedText = e.clipboardData.getData('text');
+        if (pastedText) {
+            urlInput.value = pastedText;
+        }
+        showError('Could not access clipboard. Please paste the URL manually.');
+    }
+}
+
 
 /**
  * Handles the capture button click
