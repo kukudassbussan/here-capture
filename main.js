@@ -6,66 +6,31 @@
 const API_BASE = 'https://api.microlink.io/';
 
 // DOM Elements
-const urlInput = document.getElementById('url-input');
-const captureBtn = document.getElementById('capture-btn');
-const btnText = captureBtn.querySelector('.btn-text');
-const loader = captureBtn.querySelector('.loader');
-const errorMessage = document.getElementById('error-message');
-const resultSection = document.getElementById('result-section');
-const resultImg = document.getElementById('screenshot-img');
-const downloadBtn = document.getElementById('download-btn');
-const historyGrid = document.getElementById('history-grid');
+const urlInput = document.getElementById('urlInput');
+const captureBtn = document.getElementById('captureBtn');
+const spinner = document.getElementById('spinner');
+const resultArea = document.getElementById('resultArea');
+const screenshotImg = document.getElementById('screenshotImg');
+const downloadBtn = document.getElementById('downloadBtn');
+const copyBtn = document.getElementById('copyBtn');
 
 // State
 let currentCaptureUrl = '';
-let currentTargetUrl = ''; // Keep track of the original URL for download
+let currentTargetUrl = ''; 
 let history = JSON.parse(localStorage.getItem('capture_history') || '[]');
 
 /**
  * Initialize the app
  */
 function init() {
-    renderHistory();
-    
     captureBtn.addEventListener('click', handleCapture);
     urlInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleCapture();
     });
     
-    // Listen for paste events to auto-capture
-    urlInput.addEventListener('paste', handlePaste);
-    
     downloadBtn.addEventListener('click', downloadScreenshot);
+    copyBtn.addEventListener('click', copyLink);
 }
-
-/**
- * Handles the paste event on the URL input.
- */
-async function handlePaste(e) {
-    // Prevent the default paste action
-    e.preventDefault();
-    
-    try {
-        // Ask for permission and read from clipboard
-        const text = await navigator.clipboard.readText();
-        
-        if (text) {
-            urlInput.value = text;
-            // Automatically trigger capture after paste
-            handleCapture();
-        }
-    } catch (err) {
-        console.error('Failed to read clipboard contents: ', err);
-        // Fallback for browsers that might not support it or if permission is denied
-        // The default paste action was prevented, so we manually insert the text.
-        const pastedText = e.clipboardData.getData('text');
-        if (pastedText) {
-            urlInput.value = pastedText;
-        }
-        showError('Could not access clipboard. Please paste the URL manually.');
-    }
-}
-
 
 /**
  * Handles the capture button click
@@ -74,18 +39,16 @@ async function handleCapture() {
     const rawUrl = urlInput.value.trim();
     
     if (!isValidUrl(rawUrl)) {
-        showError('Please enter a valid URL (including http:// or https://)');
+        alert('올바른 URL을 입력해 주세요. (예: https://google.com)');
         return;
     }
     
-    hideError();
     setLoading(true);
     
     try {
         const targetUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-        // Fixed clipping issue (e.g., Clien.net) by setting explicit viewport width and scale factor.
-        // deviceScaleFactor=1 ensures the width matches the intended pixels exactly.
-        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&viewport.width=1400&viewport.deviceScaleFactor=1`;
+        // Microlink API Call
+        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=5000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&viewport.width=1400&viewport.deviceScaleFactor=1`;
         
         const response = await fetch(screenshotUrl);
         const data = await response.json();
@@ -93,13 +56,12 @@ async function handleCapture() {
         if (data.status === 'success' && data.data.screenshot) {
             const finalImgUrl = data.data.screenshot.url;
             displayResult(finalImgUrl, targetUrl);
-            addToHistory(finalImgUrl, targetUrl);
         } else {
             throw new Error(data.message || 'Failed to capture screenshot');
         }
     } catch (err) {
         console.error('Capture error:', err);
-        showError('Could not capture the site. This may be due to bot protection or API limits. Please try again in a moment.');
+        alert('캡처에 실패했습니다. 사이트 보안 정책이나 API 제한 때문일 수 있습니다. 잠시 후 다시 시도해 주세요.');
     } finally {
         setLoading(false);
     }
@@ -109,12 +71,8 @@ async function handleCapture() {
  * Validates the URL string
  */
 function isValidUrl(string) {
-    try {
-        if (!string.includes('.')) return false;
-        return true;
-    } catch (_) {
-        return false;
-    }
+    if (!string.includes('.')) return false;
+    return true;
 }
 
 /**
@@ -123,138 +81,58 @@ function isValidUrl(string) {
 function setLoading(isLoading) {
     captureBtn.disabled = isLoading;
     if (isLoading) {
-        btnText.classList.add('hidden');
-        loader.classList.remove('hidden');
+        captureBtn.textContent = '처리 중...';
+        spinner.classList.remove('hidden');
+        resultArea.classList.add('hidden');
     } else {
-        btnText.classList.remove('hidden');
-        loader.classList.add('hidden');
+        captureBtn.textContent = '지금 캡처하기';
+        spinner.classList.add('hidden');
     }
 }
 
 /**
- * Shows error message
- */
-function showError(msg) {
-    errorMessage.textContent = msg;
-    errorMessage.classList.remove('hidden');
-}
-
-/**
- * Hides error message
- */
-function hideError() {
-    errorMessage.classList.add('hidden');
-}
-
-/**
- * Displays the result in the main card
+ * Displays the result
  */
 function displayResult(imgUrl, targetUrl) {
     currentCaptureUrl = imgUrl;
-    currentTargetUrl = targetUrl; // Save the original URL
-    resultImg.src = imgUrl;
-    resultSection.classList.remove('hidden');
-    resultSection.scrollIntoView({ behavior: 'smooth' });
+    currentTargetUrl = targetUrl;
+    screenshotImg.src = imgUrl;
+    resultArea.classList.remove('hidden');
+    resultArea.scrollIntoView({ behavior: 'smooth' });
 }
 
 /**
- * Downloads the current screenshot.
- * Uses a Blob-based approach to bypass cross-origin restrictions.
- * Microlink API with embed=screenshot.url provides Access-Control-Allow-Origin: *
+ * Downloads the current screenshot
  */
-async function downloadScreenshot() {
-    if (!currentTargetUrl) {
-        showError('No active capture to download.');
-        return;
-    }
+async function downloadScreenshot(e) {
+    e.preventDefault();
+    if (!currentCaptureUrl) return;
 
     try {
-        downloadBtn.disabled = true;
         downloadBtn.textContent = '다운로드 중...';
-        
-        // Consistent viewport settings for download as well
-        const downloadApiUrl = `${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=10000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&embed=screenshot.url&viewport.width=1400&viewport.deviceScaleFactor=1`;
-
-        const response = await fetch(downloadApiUrl);
-        if (!response.ok) throw new Error('Network response was not ok');
-        
+        const response = await fetch(`${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&embed=screenshot.url&fullPage=true`);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        
         const a = document.createElement('a');
-        a.style.display = 'none';
         a.href = url;
-        // Generate a clean filename
-        const filename = `screenshot-${new URL(currentTargetUrl).hostname.replace(/\./g, '-')}.png`;
-        a.download = filename;
-        
+        a.download = `capture-${new URL(currentTargetUrl).hostname}.png`;
         document.body.appendChild(a);
         a.click();
-        
-        // Cleanup
-        setTimeout(() => {
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        }, 100);
-        
-        hideError();
+        window.URL.revokeObjectURL(url);
     } catch (err) {
-        console.error('Download failed:', err);
-        showError('다운로드에 실패했습니다. 이미지 위에서 마우스 오른쪽 버튼을 클릭하여 "이미지를 다른 이름으로 저장"을 선택해 주세요.');
+        alert('다운로드 중 오류가 발생했습니다. 이미지 우클릭으로 저장해 주세요.');
     } finally {
-        downloadBtn.disabled = false;
-        downloadBtn.textContent = '다운로드';
+        downloadBtn.textContent = '이미지 다운로드';
     }
 }
 
 /**
- * Adds a capture to the history
+ * Copies the image link to clipboard
  */
-function addToHistory(imgUrl, targetUrl) {
-    const item = {
-        id: Date.now(),
-        url: targetUrl,
-        img: imgUrl,
-        date: new Date().toLocaleDateString()
-    };
-    
-    history = history.filter(h => h.url !== targetUrl);
-    history.unshift(item);
-    
-    if (history.length > 12) history.pop();
-    
-    localStorage.setItem('capture_history', JSON.stringify(history));
-    renderHistory();
-}
-
-/**
- * Renders the history grid
- */
-function renderHistory() {
-    if (history.length === 0) {
-        historyGrid.innerHTML = '<p class="empty-state">No captures yet. Start by entering a URL above!</p>';
-        return;
-    }
-    
-    historyGrid.innerHTML = history.map(item => `
-        <div class="history-item" data-id="${item.id}">
-            <div class="history-thumb" style="background-image: url('${item.img}')"></div>
-            <div class="history-info">
-                <div class="history-url">${item.url.replace(/^https?:\/\//, '')}</div>
-                <div class="history-date">${item.date}</div>
-            </div>
-        </div>
-    `).join('');
-    
-    document.querySelectorAll('.history-item').forEach(el => {
-        el.addEventListener('click', () => {
-            const id = parseInt(el.dataset.id);
-            const item = history.find(h => h.id === id);
-            if (item) {
-                displayResult(item.img, item.url);
-                urlInput.value = item.url;
-            }
-        });
+function copyLink() {
+    if (!currentCaptureUrl) return;
+    navigator.clipboard.writeText(currentCaptureUrl).then(() => {
+        alert('이미지 링크가 클립보드에 복사되었습니다.');
     });
 }
 

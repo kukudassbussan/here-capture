@@ -3,35 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL 캡처 - 고화질 전체 페이지 스크린샷 도구</title>
-    <meta name="description" content="단 한 번의 클릭으로 어떤 웹사이트든 고화질 전체 페이지 스크린샷을 즉시 캡처하세요. 빠르고 무료이며 디자이너, 개발자, 콘텐츠 제작자에게 완벽한 도구입니다.">
-    <meta name="keywords" content="웹사이트 캡처, 전체 페이지 스크린샷, 스크린샷 도구, 웹사이트 이미지 저장, URL 캡처">
+    <title>URL Capture - 고화질 전체 웹페이지 스크린샷 캡처 도구</title>
+    <meta name="description" content="URL 하나로 웹페이지 전체를 고화질 이미지로 캡처하세요. 디자이너와 개발자를 위한 최고의 웹 아카이빙 및 레퍼런스 수집 도구입니다.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pages.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7745231948760898" crossorigin="anonymous"></script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "URL Capture",
-      "operatingSystem": "All",
-      "applicationCategory": "UtilitiesApplication",
-      "description": "고화질 전체 페이지 웹사이트 스크린샷 캡처 도구",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "KRW"
-      }
-    }
-    </script>
-    <script type="module" src="main.js" defer></script>
 </head>
 <body class="midnight-aura">
     <div class="background-texture"></div>
-
+    
     <header class="main-header">
         <div class="logo">URL Capture</div>
         <nav class="main-nav">
@@ -41,194 +22,106 @@
             <a href="contact.html">문의하기</a>
         </nav>
     </header>
-    
-    <main class="app-container">
-        <header class="hero">
-            <h1 class="hero-title">웹사이트의 <span class="gradient-text">모든 순간</span>을 캡처하세요</h1>
-            <p class="hero-subtitle">클릭 한 번으로 고화질 전체 페이지 스크린샷을 즉시 생성합니다.</p>
-        </header>
 
-        <section class="capture-section">
-            <div class="input-group">
-                <input type="url" id="url-input" placeholder="웹사이트 URL 입력 (예: https://google.com)" aria-label="Website URL">
-                <button id="capture-btn" class="primary-btn">
-                    <span class="btn-text">캡처하기</span>
-                    <span class="loader hidden"></span>
-                </button>
+    <main class="hero-container">
+        <section class="hero-content">
+            <h1 class="hero-title">웹의 모든 순간을<br><span class="gradient-text">완벽한 한 장</span>으로 기록하세요</h1>
+            <p class="hero-subtitle">강력한 브라우저 엔진으로 자바스크립트 기반 사이트부터 전체 스크롤까지 픽셀 단위로 정확하게 캡처합니다.</p>
+            
+            <div class="capture-box">
+                <input type="url" id="urlInput" placeholder="https://example.com" aria-label="캡처할 URL 입력">
+                <button id="captureBtn">지금 캡처하기</button>
             </div>
-            <div id="error-message" class="error-msg hidden"></div>
         </section>
 
-        <!-- Result Section -->
-        <section id="result-section" class="result-section hidden">
+        <section id="resultArea" class="result-area hidden">
+            <div class="loading-spinner hidden" id="spinner"></div>
             <div class="result-card">
-                <div class="card-header">
-                    <h3 id="result-title">스크린샷 미리보기</h3>
-                    <div class="actions">
-                        <button id="download-btn" class="secondary-btn">다운로드</button>
-                    </div>
-                </div>
-                <div class="image-container">
-                    <img id="screenshot-img" src="" alt="Captured Screenshot">
+                <img id="screenshotImg" src="" alt="캡처 결과">
+                <div class="result-actions">
+                    <a id="downloadBtn" href="#" download="screenshot.png" class="btn-primary">이미지 다운로드</a>
+                    <button id="copyBtn" class="btn-secondary">링크 복사</button>
                 </div>
             </div>
         </section>
 
-        <!-- History Section -->
-        <section id="history-section" class="history-section">
-            <h2 class="section-title">최근 캡처 내역</h2>
-            <div id="history-grid" class="history-grid">
-                <p class="empty-state">아직 캡처된 내역이 없습니다. URL을 입력해 보세요!</p>
-            </div>
-        </section>
-
-        <!-- Supported Sites Section -->
-        <section id="supported-sites" class="supported-sites">
-            <h2 class="section-title">캡처 가능 주요 사이트</h2>
-            <div class="site-list">
-                <div class="site-card" onclick="document.getElementById('url-input').value='https://www.dcinside.com';">
-                    <div class="site-icon dc-icon">DC</div>
-                    <span class="site-name">디시인사이드</span>
+        <!-- AdSense Content Expansion Section -->
+        <section class="info-section">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🚀 신속하고 정확한 렌더링</h3>
+                    <p>Chromium 기반 엔진을 사용하여 복잡한 애니메이션이나 동적 레이아웃도 실제 브라우저와 동일하게 캡처합니다. 기다릴 필요 없이 단 몇 초 만에 고화질 결과물을 얻으세요.</p>
                 </div>
-                <div class="site-card" onclick="document.getElementById('url-input').value='https://news.naver.com';">
-                    <div class="site-icon naver-icon">N</div>
-                    <span class="site-name">네이버 뉴스</span>
+                <div class="info-card">
+                    <h3>🖼️ 풀페이지 캡처 지원</h3>
+                    <p>화면에 보이는 부분만이 아닌, 페이지 하단 끝까지 모든 콘텐츠를 하나의 긴 이미지로 담아냅니다. 랜딩 페이지 분석 및 디자인 아카이빙에 최적화되어 있습니다.</p>
                 </div>
-                <div class="site-card" onclick="document.getElementById('url-input').value='https://www.youtube.com';">
-                    <div class="site-icon youtube-icon">YT</div>
-                    <span class="site-name">유튜브</span>
-                </div>
-                <div class="site-card" onclick="document.getElementById('url-input').value='https://www.clien.net';">
-                    <div class="site-icon clien-icon">CL</div>
-                    <span class="site-name">클리앙</span>
+                <div class="info-card">
+                    <h3>🛡️ 스마트 팝업 제거</h3>
+                    <p>캡처를 방해하는 쿠키 배너, 광고 팝업, 알림창 등을 지능적으로 식별하여 제거합니다. 오직 본질적인 웹 디자인과 콘텐츠에만 집중할 수 있습니다.</p>
                 </div>
             </div>
         </section>
 
-        <section class="ads-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-7745231948760898"
-                 data-ad-slot="auto"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </section>
-
-        <article class="info-article">
-            <section class="info-section">
-                <h2>다양한 활용 사례 (Use Cases)</h2>
-                <div class="use-cases-grid">
-                    <div class="use-case-card">
-                        <h3>🎨 디자이너를 위한 레퍼런스 수집</h3>
-                        <p>웹 디자인의 레이아웃, 컬러 팔레트, 타이포그래피 구성을 원본 그대로 보관하세요. 스크롤이 긴 랜딩 페이지도 한 번에 캡처하여 디자인 감각을 유지할 수 있습니다.</p>
-                    </div>
-                    <div class="use-case-card">
-                        <h3>💻 개발자의 반응형 웹 검수</h3>
-                        <p>자신이 만든 웹사이트가 실제 렌더링 엔진에서 어떻게 보이는지 확인하세요. 1400px 표준 해상도로 전체 레이아웃의 정렬 상태를 완벽하게 점검할 수 있습니다.</p>
-                    </div>
-                    <div class="use-case-card">
-                        <h3>⚖️ 법률 및 증거 자료 확보</h3>
-                        <p>온라인상의 명예훼손, 허위 사실 유포, 또는 계약 위반 사항 등을 날짜와 함께 이미지로 박제하세요. 조작 불가능한 고화질 캡처는 강력한 증거가 됩니다.</p>
-                    </div>
-                    <div class="use-case-card">
-                        <h3>📊 마케터의 경쟁사 분석</h3>
-                        <p>경쟁사의 이벤트 페이지나 홍보 문구를 실시간으로 캡처하여 보관하세요. 시간이 지나 사라지는 웹 프로모션을 데이터로 축적하여 전략을 수립할 수 있습니다.</p>
-                    </div>
+        <section class="content-depth-section">
+            <div class="content-wrapper">
+                <h2>왜 웹 아카이빙이 필요한가요?</h2>
+                <p>오늘날의 웹은 '디지털 휘발성'이 강합니다. 어제의 중요한 뉴스, 영감을 주던 디자인 레퍼런스, 그리고 법적 증거가 될 수 있는 데이터들이 오늘 사라질 수 있습니다. URL Capture는 이러한 디지털 자산의 '골든 타임'을 놓치지 않도록 돕습니다.</p>
+                <div class="guide-link-box">
+                    <p>더 자세한 정보가 궁금하신가요? <a href="archiving-guide.html">웹 아카이빙 가이드 읽어보기</a></p>
                 </div>
-            </section>
-
-            <section class="info-section">
-                <h2>기술적 장점: 왜 URL Capture인가요?</h2>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <h3>완벽한 전체 페이지 캡처</h3>
-                        <p>단순한 가시 영역 캡처를 넘어, 웹페이지의 하단(Footer) 끝까지 하나의 연속된 고해상도 PNG 이미지로 자동 변환합니다.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>스마트 오버레이 제거</h3>
-                        <p>쿠키 수집 동의 배너, 가입 유도 팝업, 광고 등 본질적인 콘텐츠를 가리는 방해 요소들을 인공지능이 감지하여 자동으로 제거합니다.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>애니메이션 동기화</h3>
-                        <p>웹사이트의 로딩 애니메이션이 끝날 때까지 대기(Wait) 후 캡처하여, 비어 있는 화면이 아닌 완성된 화면을 담아냅니다.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="info-section" id="faq">
-                <h2>자주 묻는 질문 (Detailed FAQ)</h2>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <h4>Q: 캡처 시 레이아웃이 깨지는 경우는 왜 그런가요?</h4>
-                        <p>A: 일부 웹사이트는 봇 방지 시스템(Cloudflare 등)을 사용하거나, 로그인 세션이 필요한 데이터를 노출하지 않을 수 있습니다. 일반적인 공개 웹사이트는 최신 렌더링 엔진을 통해 99% 정확하게 표현됩니다.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h4>Q: 모바일 버전으로 캡처할 수 있나요?</h4>
-                        <p>A: 현재는 표준 데스크톱 뷰(1400px)를 지원합니다. 추후 모바일 및 태블릿 뷰포트 선택 기능을 업데이트할 예정입니다.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h4>Q: 캡처하는 데 시간이 얼마나 걸리나요?</h4>
-                        <p>A: 웹사이트의 복잡도에 따라 다르지만 보통 5~15초 내외가 소요됩니다. 이는 페이지 전체를 로드하고 모든 자산을 렌더링하는 데 필요한 최소한의 시간입니다.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h4>Q: 서비스 이용 비용은 무료인가요?</h4>
-                        <p>A: 네, URL Capture는 모든 사용자에게 무료로 제공됩니다. 저희는 구글 애드센스 광고를 통해 서버 운영비를 충당하고 있습니다.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="info-section">
-                <h2>더 깊은 인사이트</h2>
-                <p>웹 캡처 기술의 미래와 다양한 활용 팁이 궁금하신가요? 저희가 준비한 <a href="guides.html" style="color: var(--accent-primary); text-decoration: underline;">전문 가이드 섹션</a>에서 더 많은 정보를 확인해 보세요.</p>
-            </section>
-        </article>
-
-        <section class="knowledge-hub">
-            <h2 class="section-title">웹 캡처 전문 지식 센터</h2>
-            <p class="section-subtitle">단순한 캡처를 넘어, 웹을 더 깊이 이해하고 기록하는 방법을 제안합니다.</p>
-            <div class="knowledge-grid">
-                <article class="knowledge-card">
-                    <div class="card-tag">디지털 아카이빙</div>
-                    <h3>2024년 웹 아카이빙 가이드</h3>
-                    <p>인터넷의 휘발성에 대응하여 소중한 정보를 영구히 보관하는 전문가의 전략을 확인하세요.</p>
-                    <a href="archiving-guide.html" class="text-link">가이드 읽기 →</a>
-                </article>
-                <article class="knowledge-card">
-                    <div class="card-tag">UI/UX 디자인</div>
-                    <h3>디자인 레퍼런스 수집법</h3>
-                    <p>고화질 전체 페이지 스크린샷을 활용하여 경쟁사의 레이아웃과 디자인 위계를 분석하는 방법.</p>
-                    <a href="design-reference-guide.html" class="text-link">가이드 읽기 →</a>
-                </article>
-                <article class="knowledge-card">
-                    <div class="card-tag">기술 명세</div>
-                    <h3>헤드리스 엔진 작동 원리</h3>
-                    <p>URL Capture의 핵심 기술인 헤드리스 브라우저와 렌더링 파이프라인에 대한 심층 분석 기술서.</p>
-                    <a href="technical-specs.html" class="text-link">기술서 읽기 →</a>
-                </article>
-            </div>
-            <div class="view-all-container">
-                <a href="guides.html" class="secondary-btn">모든 가이드 보기</a>
             </div>
         </section>
 
-        <section class="ads-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-7745231948760898"
-                 data-ad-slot="auto"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        <section id="faq" class="faq-section">
+            <h2 class="section-title">자주 묻는 질문</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>Q. 서비스 이용료는 얼마인가요?</h4>
+                    <p>A. URL Capture는 개인 및 비상업적 용도로 사용하는 모든 사용자에게 무료로 제공됩니다. 저희는 광고 수익을 통해 서버 비용을 충당하고 있습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q. 로그인이나 회원가입이 필요한가요?</h4>
+                    <p>A. 아닙니다. 번거로운 가입 절차 없이 URL 입력만으로 즉시 서비스를 이용하실 수 있습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q. 캡처가 안 되는 사이트가 있나요?</h4>
+                    <p>A. 유료 결제가 필요한 페이지나 로그인이 필수인 개인정보 보호 영역은 보안상 캡처가 제한될 수 있습니다.</p>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer class="main-footer">
-        <div class="footer-nav">
-            <a href="privacy.html">개인정보 처리방침</a>
-            <a href="terms.html">이용 약관</a>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">URL Capture</div>
+                <p>디지털 아카이빙과 디자인 영감을 위한<br>고화질 웹 캡처 솔루션</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>서비스</h4>
+                    <a href="index.html">홈</a>
+                    <a href="guides.html">가이드 센터</a>
+                    <a href="about.html">회사 소개</a>
+                </div>
+                <div class="link-group">
+                    <h4>법적 고지</h4>
+                    <a href="privacy.html">개인정보 처리방침</a>
+                    <a href="terms.html">이용 약관</a>
+                </div>
+                <div class="link-group">
+                    <h4>고객 지원</h4>
+                    <a href="contact.html">문의하기</a>
+                    <a href="mailto:mujeom291@gmail.com">이메일 문의</a>
+                </div>
+            </div>
         </div>
-        <p>&copy; 2024 URL Capture. All rights reserved.</p>
+        <div class="footer-bottom">
+            <p>&copy; 2024 URL Capture. All rights reserved. Powered by Microlink API.</p>
+        </div>
     </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
