@@ -23,6 +23,7 @@ let history = JSON.parse(localStorage.getItem('capture_history') || '[]');
  * Initialize the app
  */
 function init() {
+    renderHistory();
     captureBtn.addEventListener('click', handleCapture);
     urlInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleCapture();
@@ -47,8 +48,8 @@ async function handleCapture() {
     
     try {
         const targetUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-        // Microlink API Call
-        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=5000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&viewport.width=1400&viewport.deviceScaleFactor=1`;
+        // Microlink API Call - High resolution (viewport 1920) for better readability
+        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=3000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&viewport.width=1920&viewport.deviceScaleFactor=2`;
         
         const response = await fetch(screenshotUrl);
         const data = await response.json();
@@ -56,6 +57,7 @@ async function handleCapture() {
         if (data.status === 'success' && data.data.screenshot) {
             const finalImgUrl = data.data.screenshot.url;
             displayResult(finalImgUrl, targetUrl);
+            addToHistory(finalImgUrl, targetUrl);
         } else {
             throw new Error(data.message || 'Failed to capture screenshot');
         }
@@ -102,7 +104,7 @@ function displayResult(imgUrl, targetUrl) {
 }
 
 /**
- * Downloads the current screenshot
+ * Downloads the current screenshot - Optimized speed
  */
 async function downloadScreenshot(e) {
     e.preventDefault();
@@ -110,17 +112,22 @@ async function downloadScreenshot(e) {
 
     try {
         downloadBtn.textContent = '다운로드 중...';
-        const response = await fetch(`${API_BASE}?url=${encodeURIComponent(currentTargetUrl)}&screenshot=true&embed=screenshot.url&fullPage=true`);
+        // Use the already generated image URL for faster direct download if possible
+        const response = await fetch(currentCaptureUrl);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `capture-${new URL(currentTargetUrl).hostname}.png`;
+        const hostname = new URL(currentTargetUrl).hostname;
+        a.download = `capture-${hostname}-${Date.now()}.png`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
     } catch (err) {
-        alert('다운로드 중 오류가 발생했습니다. 이미지 우클릭으로 저장해 주세요.');
+        console.error('Download error:', err);
+        // Fallback to API if blob fetch fails
+        window.open(currentCaptureUrl, '_blank');
     } finally {
         downloadBtn.textContent = '이미지 다운로드';
     }
@@ -135,6 +142,58 @@ function copyLink() {
         alert('이미지 링크가 클립보드에 복사되었습니다.');
     });
 }
+
+/**
+ * History Management
+ */
+function addToHistory(imgUrl, targetUrl) {
+    const item = {
+        id: Date.now(),
+        url: targetUrl,
+        img: imgUrl,
+        date: new Date().toLocaleString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    };
+    
+    // Remove duplicates
+    history = history.filter(h => h.url !== targetUrl);
+    history.unshift(item);
+    if (history.length > 8) history.pop();
+    
+    localStorage.setItem('capture_history', JSON.stringify(history));
+    renderHistory();
+}
+
+function deleteHistoryItem(id, e) {
+    e.stopPropagation();
+    history = history.filter(item => item.id !== id);
+    localStorage.setItem('capture_history', JSON.stringify(history));
+    renderHistory();
+}
+
+function renderHistory() {
+    const historyContainer = document.getElementById('historyGrid');
+    if (!historyContainer) return;
+
+    if (history.length === 0) {
+        historyContainer.innerHTML = '<p class="empty-state">최근 캡처 내역이 없습니다.</p>';
+        return;
+    }
+
+    historyContainer.innerHTML = history.map(item => `
+        <div class="history-card" onclick="displayResult('${item.img}', '${item.url}')">
+            <div class="history-preview" style="background-image: url('${item.img}')"></div>
+            <div class="history-details">
+                <span class="history-url">${new URL(item.url).hostname}</span>
+                <span class="history-date">${item.date}</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(${item.id}, event)" title="삭제">×</button>
+        </div>
+    `).join('');
+}
+
+// Global functions for inline event handlers
+window.displayResult = displayResult;
+window.deleteHistoryItem = deleteHistoryItem;
 
 // Start the app
 init();
