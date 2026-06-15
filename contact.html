@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의하기 - URL Capture</title>
+    <title>고객 지원 및 문의 - URL Capture</title>
     <meta name="description" content="URL Capture 서비스 이용 중 궁금한 점이나 제안 사항이 있으신가요? 고객 지원팀에 문의해 주세요.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,61 +27,52 @@
     <main class="page-content">
         <header class="page-header">
             <h1>고객 지원 및 문의</h1>
-            <p class="subtitle">서비스 개선을 위한 여러분의 의견을 기다립니다.</p>
+            <p class="subtitle">서비스 개선을 위한 여러분의 소중한 의견을 기다립니다.</p>
         </header>
 
-        <section class="contact-grid">
+        <section class="contact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px;">
             <div class="contact-info">
                 <h2>어떻게 도와드릴까요?</h2>
-                <p>URL Capture는 사용자 여러분의 피드백을 통해 성장합니다. 버그 제보, 기능 제안, 비즈니스 협업 등 모든 문의를 환영합니다.</p>
+                <p>URL Capture는 사용자 여러분의 피드백을 통해 성장합니다. 버그 제보, 기능 제안, 비즈니스 협업 등 모든 문의를 환영합니다. 서비스 이용 중 불편함이 있다면 주저하지 말고 연락해 주세요.</p>
                 
-                <div class="contact-methods">
-                    <div class="method-item">
-                        <h3>📧 이메일 문의</h3>
-                        <p>mujeom291@gmail.com</p>
-                        <span>(일반 서비스 이용 및 기술 지원)</span>
+                <div class="contact-methods" style="margin-top: 30px;">
+                    <div class="method-item" style="margin-bottom: 20px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+                        <h3 style="color: var(--accent-primary); margin-bottom: 10px;">📧 이메일 문의</h3>
+                        <p style="font-weight: 700;">mujeom291@gmail.com</p>
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">(일반 서비스 이용 및 기술 지원)</span>
                     </div>
-                    <div class="method-item">
-                        <h3>💼 비즈니스 및 광고</h3>
-                        <p>mujeom291@gmail.com</p>
-                        <span>(제휴 및 광고 게재 문의)</span>
+                    <div class="method-item" style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+                        <h3 style="color: var(--accent-secondary); margin-bottom: 10px;">💼 비즈니스 및 광고</h3>
+                        <p style="font-weight: 700;">mujeom291@gmail.com</p>
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">(제휴 및 광고 게재 문의)</span>
                     </div>
                 </div>
 
-                <div class="support-policy">
-                    <h3>운영 시간 및 안내</h3>
-                    <ul>
-                        <li><strong>응대 시간:</strong> 평일 10:00 - 18:00 (KST)</li>
-                        <li><strong>예상 답변 시간:</strong> 영업일 기준 24~48시간 이내</li>
-                        <li><strong>긴급 문의:</strong> 버그 제보 시 해당 URL과 발생 상황을 상세히 적어주시면 빠른 처리가 가능합니다.</li>
+                <div class="support-policy" style="margin-top: 30px; font-size: 0.9rem; color: var(--text-secondary);">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">운영 안내</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>평일 10:00 - 18:00 (KST) 운영</li>
+                        <li>영업일 기준 24~48시간 이내 답변</li>
+                        <li>버그 제보 시 해당 URL을 꼭 포함해 주세요.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="contact-form-container">
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">이름 / 닉네임</label>
-                        <input type="text" id="name" placeholder="이름을 입력하세요">
+                <form class="contact-form" style="background: rgba(255,255,255,0.02); padding: 30px; border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="name" style="display: block; margin-bottom: 8px; font-weight: 600;">이름 / 닉네임</label>
+                        <input type="text" id="name" placeholder="이름을 입력하세요" style="width: 100%; padding: 12px; background: var(--bg-color); border: 1px solid var(--glass-border); border-radius: var(--radius-md); color: white;">
                     </div>
-                    <div class="form-group">
-                        <label for="email">이메일 주소</label>
-                        <input type="email" id="email" placeholder="답변받을 이메일을 입력하세요">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="email" style="display: block; margin-bottom: 8px; font-weight: 600;">이메일 주소</label>
+                        <input type="email" id="email" placeholder="답변받을 이메일을 입력하세요" style="width: 100%; padding: 12px; background: var(--bg-color); border: 1px solid var(--glass-border); border-radius: var(--radius-md); color: white;">
                     </div>
-                    <div class="form-group">
-                        <label for="category">문의 유형</label>
-                        <select id="category">
-                            <option value="bug">버그 제보 / 오류 신고</option>
-                            <option value="feature">기능 제안</option>
-                            <option value="business">비즈니스 협업</option>
-                            <option value="other">기타 문의</option>
-                        </select>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="message" style="display: block; margin-bottom: 8px; font-weight: 600;">문의 내용</label>
+                        <textarea id="message" rows="6" placeholder="상세한 내용을 입력해 주세요" style="width: 100%; padding: 12px; background: var(--bg-color); border: 1px solid var(--glass-border); border-radius: var(--radius-md); color: white; resize: none;"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="message">문의 내용</label>
-                        <textarea id="message" rows="6" placeholder="상세한 내용을 입력해 주세요"></textarea>
-                    </div>
-                    <button type="button" class="primary-btn" onclick="alert('문의가 접수되었습니다. (데모)')">문의 보내기</button>
+                    <button type="button" class="btn-primary" onclick="alert('현재 데모 버전입니다. 이메일로 직접 문의해 주시면 감사하겠습니다.')" style="width: 100%; padding: 15px; border: none; border-radius: var(--radius-md); font-weight: 800; cursor: pointer;">문의 보내기</button>
                 </form>
             </div>
         </section>
