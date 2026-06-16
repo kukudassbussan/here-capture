@@ -223,6 +223,16 @@
         box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
     }
 
+    /* Banner Ad */
+    .banner-ad-container {
+        max-width: 700px;
+        margin: 40px auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 250px;
+    }
+
     /* History Grid & Cards */
     .history-grid {
         display: grid;
