@@ -1,7 +1,7 @@
 # Project Blueprint - URL Capture
 
 ## Overview
-A high-end, content-rich web application designed to capture full-page screenshots of websites. Beyond a simple tool, it serves as a comprehensive resource for web archiving, design reference, and digital documentation. Optimized for maximum Google AdSense compatibility through substantial, high-quality textual value.
+A high-end, content-rich web application designed to capture full-page screenshots of websites. Beyond a simple tool, it serves as a comprehensive resource for web archiving, design reference, and digital documentation. Optimized for maximum Kakao AdFit compatibility through substantial, high-quality textual value.
 
 ## Project Details
 ### Design & Features
@@ -13,28 +13,15 @@ A high-end, content-rich web application designed to capture full-page screensho
     - **Local History:** Privacy-focused storage using localStorage.
     - **Content Hub:** A dedicated guides and articles section to provide deep contextual value.
 
-### AdSense "High Value Content" Mastery Plan
-To guarantee AdSense approval, the following content expansion is being implemented:
-- **Comprehensive Guides Section:** Added `guides.html` featuring deep-dive articles on:
-    - "The importance of web archiving in 2024"
-    - "How to capture perfect screenshots for design portfolios"
-    - "Technical deep-dive: How headless browsers render web pages"
-- **Expanded Homepage Content:**
-    - **Use Cases Gallery:** Detailed descriptions of how Designers, Developers, Lawyers, and Marketers use our tool.
-    - **Interactive How-To:** A multi-step visual guide explaining the technology behind the capture.
-    - **Technical FAQ:** 10+ detailed questions covering CORS, Viewport emulation, and API limits.
-- **Enhanced Support Infrastructure:**
-    - **About Us (V2):** Expanded with mission statements, technical philosophy, and commitment to open web standards.
-    - **Changelog / Service Status:** Adding a sense of "live" development.
-    - **Contact Us (V2):** Professional contact form style with clear expectations.
-- **Technical Excellence:**
-    - 100/100 Mobile Friendliness.
-    - Semantic HTML5 for perfect SEO indexing.
-    - Rich Schema.org markup (SoftwareApplication) to help Google understand the tool's purpose.
+### Kakao AdFit Transition Plan
+To maintain service sustainability after AdSense suspension, the following transition is implemented:
+- **Removal of AdSense:** All scripts and meta tags related to Google AdSense have been removed.
+- **Integration of AdFit:** Kakao AdFit ad units are placed in Top, Middle, and Bottom slots of the homepage.
+- **Policy Update:** Privacy Policy and About page updated to reflect the change in ad provider.
 
 ## Implementation Steps
-1. **[Current] Content Expansion:** Create `guides.html` and populate with 3+ high-quality articles.
-2. **Homepage Revamp:** Inject "Use Cases", "Detailed FAQ", and "Technical How-To" sections.
-3. **Internal Linking:** Synchronize Header/Footer across all pages to include the new Content Hub.
-4. **Metadata Overhaul:** Ensure every page has unique, keyword-rich titles and descriptions.
-5. **SEO & Accessibility Audit:** Validate aria-labels, alt-tags, and logical heading structure.
+1. **[Completed] AdSense Removal:** Removed all Google-specific monetization scripts and meta tags.
+2. **[Completed] AdFit Integration:** Successfully integrated `DAN-5yN0johH6pbjG7Nx` ad units.
+3. **[Completed] Documentation Update:** Updated Privacy Policy and Mission statement.
+4. **Final Verification:** Ensure ad units render correctly and do not break the "Midnight Aura" UI.
+5. **Git Push:** Upload all changes to the repository.
