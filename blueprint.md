@@ -19,11 +19,13 @@ To maintain service sustainability after AdSense suspension, the following trans
 - **Integration of AdFit:**
     - **Side Sidebar:** Integrated `DAN-5yN0johH6pbjG7Nx` (160x600) in the right sticky sidebar.
     - **Middle Banner:** Integrated `DAN-SynaL4kkRDnyyq88` (250x250) directly below the URL capture input for high visibility.
+- **Integration of Microsoft Clarity:** Added behavioral analytics tracking to all pages for user experience optimization.
 - **Policy Update:** Privacy Policy and About page updated to reflect the change in ad provider.
 
 ## Implementation Steps
 1. **[Completed] AdSense Removal:** Removed all Google-specific monetization scripts and meta tags.
 2. **[Completed] AdFit Integration:** Successfully integrated sidebar and middle banner ad units.
 3. **[Completed] Documentation Update:** Updated Privacy Policy and Mission statement.
-4. **Final Verification:** Ensure ad units render correctly and do not break the "Midnight Aura" UI.
-5. **Git Push:** Upload all changes to the repository.
+4. **[Completed] Microsoft Clarity Integration:** Added Clarity tracking script to all HTML files for behavioral analysis.
+5. **Final Verification:** Ensure ad units and tracking scripts render correctly and do not break the "Midnight Aura" UI.
+6. **Git Push:** Upload all changes to the repository.
