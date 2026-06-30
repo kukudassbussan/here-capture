@@ -19,46 +19,59 @@ app.post('/capture', async (req, res) => {
     let browser;
     try {
         browser = await puppeteer.launch({
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--start-maximized']
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage', // 메모리 문제 방지
+                '--start-maximized'
+            ]
         });
         const page = await browser.newPage();
         
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36');
         await page.setViewport({ width: 1920, height: 1080 });
 
-        await page.goto(url, { waitUntil: 'networkidle0', timeout: 90000 });
+        // --- 다단계 로딩 및 대기 전략 ---
 
-        // --- 지능형 팝업 및 방해 요소 처리 ---
-        await page.evaluate(() => {
-            // 디시인사이드 로그인 팝업 제거
-            const dcLoginPopup = document.querySelector('#login_pop');
-            if (dcLoginPopup) dcLoginPopup.remove();
+        // 1단계: 기본 DOM 구조 로드까지 대기
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 90000 });
 
-            // 일반적인 쿠키 배너나 하단 고정 배너 제거
-            const banners = document.querySelectorAll('[id*="banner"], [class*="banner"], [id*="popup"], [class*="popup"]');
-            banners.forEach(banner => banner.remove());
-        });
+        // 안전한 팝업 제거 (오류 발생 시에도 중단되지 않도록)
+        try {
+            await page.evaluate(() => {
+                const selectors = ['#login_pop', '[class*="popup"], [id*="popup"] '];
+                selectors.forEach(selector => {
+                    const elements = document.querySelectorAll(selector);
+                    elements.forEach(el => el.remove());
+                });
+            });
+        } catch (e) {
+            console.warn('Could not remove popups:', e.message);
+        }
 
-        // --- 페이지 전체 스크롤 다운으로 지연 로딩 콘텐츠 불러오기 ---
+        // 2단계: 전체 스크롤로 모든 콘텐츠 강제 로드
         await page.evaluate(async () => {
             await new Promise((resolve) => {
                 let totalHeight = 0;
-                const distance = 100;
-                const timer = setInterval(() => {
+                const distance = 200;
+                const scrollInterval = setInterval(() => {
                     const scrollHeight = document.body.scrollHeight;
                     window.scrollBy(0, distance);
                     totalHeight += distance;
 
                     if (totalHeight >= scrollHeight) {
-                        clearInterval(timer);
+                        clearInterval(scrollInterval);
                         resolve();
                     }
                 }, 100);
             });
         });
         
-        // 렌더링 안정화를 위한 추가 대기
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        // 3단계: 네트워크 안정화 대기 (모든 리소스 로드)
+        await page.waitForNetworkIdle({ idleTime: 1000, timeout: 60000 });
+
+        // 4단계: 최종 렌더링을 위한 추가 대기
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
         const screenshot = await page.screenshot({
             fullPage: true,
@@ -70,7 +83,7 @@ app.post('/capture', async (req, res) => {
 
     } catch (error) {
         console.error('Capture failed:', error);
-        res.status(500).json({ error: 'Failed to capture screenshot. The site may be too complex or has loading issues.' });
+        res.status(500).json({ error: 'Failed to capture screenshot. The site may have rendering issues or complex layouts.' });
     } finally {
         if (browser) {
             await browser.close();
