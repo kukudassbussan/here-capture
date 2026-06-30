@@ -1,31 +1,45 @@
-# Project Blueprint - URL Capture
+# Blueprint: Here Capture
 
 ## Overview
-A high-end, content-rich web application designed to capture full-page screenshots of websites. Beyond a simple tool, it serves as a comprehensive resource for web archiving, design reference, and digital documentation. Optimized for maximum Kakao AdFit compatibility through substantial, high-quality textual value.
 
-## Project Details
-### Design & Features
-- **Theme:** "Midnight Aura" - Premium dark theme with deep shadows, glowing accents, and subtle noise textures.
-- **Typography:** Noto Sans KR (Primary), Inter (Secondary). Professional hierarchy for readability.
-- **Components:**
-    - **Advanced Capture Engine:** Powered by Microlink API. Optimized for Korean communities (DC Inside, Clien, etc.) with automatic overlay removal and high-resolution rendering.
-    - **Dynamic Gallery:** Real-time preview with seamless download functionality.
-    - **Local History:** Privacy-focused storage using localStorage.
-    - **Content Hub:** A dedicated guides and articles section to provide deep contextual value.
+Here Capture는 사용자가 지정한 URL의 전체 웹페이지를 캡처하여 고해상도 이미지로 제공하는 웹 애플리케이션입니다. 복잡한 설정이나 브라우저 확장 프로그램 설치 없이, URL을 입력하고 버튼을 클릭하는 것만으로 웹페이지 전체를 손쉽게 저장할 수 있습니다.
 
-### Kakao AdFit Transition Plan
-To maintain service sustainability after AdSense suspension, the following transition is implemented:
-- **Removal of AdSense:** All scripts and meta tags related to Google AdSense have been removed.
-- **Integration of AdFit:**
-    - **Side Sidebar:** Integrated `DAN-5yN0johH6pbjG7Nx` (160x600) in the right sticky sidebar.
-    - **Middle Banner:** Integrated `DAN-SynaL4kkRDnyyq88` (250x250) directly below the URL capture input for high visibility.
-- **Integration of Microsoft Clarity:** Added behavioral analytics tracking to all pages for user experience optimization.
-- **Policy Update:** Privacy Policy and About page updated to reflect the change in ad provider.
+## Core Features
 
-## Implementation Steps
-1. **[Completed] AdSense Removal:** Removed all Google-specific monetization scripts and meta tags.
-2. **[Completed] AdFit Integration:** Successfully integrated sidebar and middle banner ad units.
-3. **[Completed] Documentation Update:** Updated Privacy Policy and Mission statement.
-4. **[Completed] Microsoft Clarity Integration:** Added Clarity tracking script to all HTML files for behavioral analysis.
-5. **Final Verification:** Ensure ad units and tracking scripts render correctly and do not break the "Midnight Aura" UI.
-6. **Git Push:** Upload all changes to the repository.
+-   **URL 기반 전체 페이지 캡처:** 사용자가 입력한 URL의 웹페이지를 처음부터 끝까지 전체 캡처합니다.
+-   **고해상도 이미지 생성:** 캡처된 웹페이지를 선명한 고해상도 PNG 이미지로 제공합니다.
+-   **간편한 다운로드:** 생성된 이미지를 클릭 한 번으로 사용자의 기기에 다운로드할 수 있습니다.
+-   **실시간 처리 및 피드백:** 캡처가 진행되는 동안 사용자에게 로딩 상태를 보여주고, 완료 즉시 결과 이미지를 표시합니다.
+-   **지능형 팝업 처리:** 캡처를 방해할 수 있는 쿠키 동의 배너나 광고 팝업 등을 자동으로 처리하여 콘텐츠 중심의 깔끔한 결과물을 제공합니다.
+
+## Design & Style
+
+-   **모던하고 직관적인 UI:** 사용자가 기능을 쉽게 이해하고 사용할 수 있도록 간결하고 현대적인 디자인을 적용했습니다.
+-   **반응형 레이아웃:** 데스크톱, 태블릿, 모바일 등 다양한 기기에서 최적의 사용 경험을 제공합니다.
+-   **세련된 시각적 요소:**
+    -   **폰트:** 가독성이 뛰어난 Noto Sans KR과 Inter 폰트를 사용하여 정보를 명확하게 전달합니다.
+    -   **색상:** 신뢰감을 주는 네이비(#2c3e50)와 활기찬 민트(#1abc9c)를 포인트로 사용하여 생동감 있는 인터페이스를 구성합니다.
+    -   **효과:** 부드러운 그림자(box-shadow)와 은은한 전환(transition) 효과를 사용하여 고급스러운 느낌을 더했습니다.
+
+---
+
+## Current Task: 동적 웹사이트 캡처 안정성 강화
+
+**목표:** '디시인사이드'와 같이 복잡하고 동적인 콘텐츠를 포함한 웹사이트에서도 안정적으로 전체 페이지를 캡처할 수 있도록 서버 로직을 개선합니다.
+
+**문제 진단:**
+
+-   현재 로직은 페이지 로드 후 바로 캡처를 시도하여, 지연 로딩되는 이미지나 광고, 나중에 나타나는 팝업 등으로 인해 캡처가 불완전하거나 실패하는 경우가 발생합니다. 특히 '디시인사이드'와 같은 사이트에서 문제가 두드러집니다.
+
+**개선 계획:**
+
+1.  **`server.js` 로직 고도화:**
+    -   **지능형 팝업/오버레이 제거:** 페이지 로드 후, 알려진 팝업창(예: 디시인사이드 로그인 안내)이나 일반적인 쿠키 동의 배너를 자동으로 찾아 닫는 단계를 추가합니다. CSS 선택자를 기반으로 '닫기' 또는 '동의' 버튼을 클릭하는 로직을 구현합니다.
+    -   **콘텐츠 로딩 대기:** 페이지 하단으로 스크롤하여 지연 로딩(lazy-loading)되는 이미지와 콘텐츠를 모두 불러옵니다.
+    -   **최종 렌더링 대기:** 모든 동적 요소가 자리를 잡고 렌더링이 안정될 수 있도록 스크롤 후 추가 대기 시간을 부여합니다.
+    -   `puppeteer`의 `screenshot` 기능에 내장된 `fullPage: true` 옵션은 그대로 유지하여 안정성을 확보합니다.
+
+2.  **Git 배포:**
+    -   개선된 `server.js` 파일을 스테이징(`git add .`)합니다.
+    -   커밋 메시지와 함께 변경 사항을 커밋(`git commit -m "fix: Enhance capture stability for dynamic websites"`)합니다.
+    -   `main` 브랜치에 변경 사항을 푸시(`git push origin main`)하여 개선된 버전을 배포합니다.
