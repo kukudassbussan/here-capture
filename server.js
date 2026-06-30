@@ -22,7 +22,7 @@ app.post('/capture', async (req, res) => {
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage', // 메모리 문제 방지
+                '--disable-dev-shm-usage',
                 '--start-maximized'
             ]
         });
@@ -31,15 +31,14 @@ app.post('/capture', async (req, res) => {
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36');
         await page.setViewport({ width: 1920, height: 1080 });
 
-        // --- 다단계 로딩 및 대기 전략 ---
+        // --- 속도 중심의 로딩 전략 ---
+        // networkidle2는 대부분의 리소스가 로드되면 다음으로 넘어가 속도가 빠름
+        await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
-        // 1단계: 기본 DOM 구조 로드까지 대기
-        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 90000 });
-
-        // 안전한 팝업 제거 (오류 발생 시에도 중단되지 않도록)
+        // 간단한 팝업 제거 로직은 유지
         try {
             await page.evaluate(() => {
-                const selectors = ['#login_pop', '[class*="popup"], [id*="popup"] '];
+                const selectors = ['[class*="popup"], [id*="popup"] '];
                 selectors.forEach(selector => {
                     const elements = document.querySelectorAll(selector);
                     elements.forEach(el => el.remove());
@@ -48,30 +47,9 @@ app.post('/capture', async (req, res) => {
         } catch (e) {
             console.warn('Could not remove popups:', e.message);
         }
-
-        // 2단계: 전체 스크롤로 모든 콘텐츠 강제 로드
-        await page.evaluate(async () => {
-            await new Promise((resolve) => {
-                let totalHeight = 0;
-                const distance = 200;
-                const scrollInterval = setInterval(() => {
-                    const scrollHeight = document.body.scrollHeight;
-                    window.scrollBy(0, distance);
-                    totalHeight += distance;
-
-                    if (totalHeight >= scrollHeight) {
-                        clearInterval(scrollInterval);
-                        resolve();
-                    }
-                }, 100);
-            });
-        });
         
-        // 3단계: 네트워크 안정화 대기 (모든 리소스 로드)
-        await page.waitForNetworkIdle({ idleTime: 1000, timeout: 60000 });
-
-        // 4단계: 최종 렌더링을 위한 추가 대기
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // 최종 렌더링을 위한 짧은 대기
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         const screenshot = await page.screenshot({
             fullPage: true,
@@ -83,7 +61,7 @@ app.post('/capture', async (req, res) => {
 
     } catch (error) {
         console.error('Capture failed:', error);
-        res.status(500).json({ error: 'Failed to capture screenshot. The site may have rendering issues or complex layouts.' });
+        res.status(500).json({ error: 'Failed to capture screenshot. The site may have loading issues.' });
     } finally {
         if (browser) {
             await browser.close();
