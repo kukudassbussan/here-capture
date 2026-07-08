@@ -1,9 +1,7 @@
 /**
  * URL Capture - Main Logic
- * Uses Microlink API to take full-page screenshots.
+ * Uses a Cloudflare Worker to proxy Microlink API calls.
  */
-
-const API_BASE = 'https://api.microlink.io/';
 
 // DOM Elements
 const urlInput = document.getElementById('urlInput');
@@ -48,22 +46,21 @@ async function handleCapture() {
     
     try {
         const targetUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-        // Microlink API Call - High resolution (viewport 1920) for better readability
-        const screenshotUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=3000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&viewport.width=1920&viewport.deviceScaleFactor=2`;
+        // Call our own serverless function proxy
+        const proxyUrl = `/functions/capture?url=${encodeURIComponent(targetUrl)}`;
         
-        const response = await fetch(screenshotUrl);
+        const response = await fetch(proxyUrl);
         const data = await response.json();
         
-        if (data.status === 'success' && data.data.screenshot) {
-            const finalImgUrl = data.data.screenshot.url;
-            displayResult(finalImgUrl, targetUrl);
-            addToHistory(finalImgUrl, targetUrl);
+        if (response.ok && data.screenshotUrl) {
+            displayResult(data.screenshotUrl, targetUrl);
+            addToHistory(data.screenshotUrl, targetUrl);
         } else {
-            throw new Error(data.message || 'Failed to capture screenshot');
+            throw new Error(data.error || 'Failed to capture screenshot from proxy');
         }
     } catch (err) {
         console.error('Capture error:', err);
-        alert('캡처에 실패했습니다. 사이트 보안 정책이나 API 제한 때문일 수 있습니다. 잠시 후 다시 시도해 주세요.');
+        alert('캡처에 실패했습니다. 사이트 보안 정책이나 서버 문제일 수 있습니다. 잠시 후 다시 시도해 주세요.');
     } finally {
         setLoading(false);
     }
@@ -112,8 +109,8 @@ async function downloadScreenshot(e) {
 
     try {
         downloadBtn.textContent = '다운로드 중...';
-        // Use the already generated image URL for faster direct download if possible
-        const response = await fetch(currentCaptureUrl);
+        // Since the image is now from our trusted proxy, we can try to fetch it as a blob.
+        const response = await fetch(currentCaptureUrl); 
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -126,7 +123,8 @@ async function downloadScreenshot(e) {
         document.body.removeChild(a);
     } catch (err) {
         console.error('Download error:', err);
-        // Fallback to API if blob fetch fails
+        // If blob download fails (e.g. CORS issues from Microlink CDN), fallback to opening the link
+        alert('이미지를 직접 다운로드할 수 없습니다. 새 탭에서 이미지를 열어 직접 저장해주세요.');
         window.open(currentCaptureUrl, '_blank');
     } finally {
         downloadBtn.textContent = '이미지 다운로드';
@@ -154,7 +152,6 @@ function addToHistory(imgUrl, targetUrl) {
         date: new Date().toLocaleString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
     };
     
-    // Remove duplicates
     history = history.filter(h => h.url !== targetUrl);
     history.unshift(item);
     if (history.length > 8) history.pop();

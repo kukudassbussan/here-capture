@@ -1,210 +1,89 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <!-- SEO Meta Tags -->
-    <title>히어캡처 | Here Capture - AI 기반 웹 아카이빙 솔루션</title>
-    <meta name="description" content="URL 입력만으로 웹페이지 전체를 고화질 이미지로 캡처, 아카이빙, 레퍼런스 수집하세요. AI가 스마트하게 광고와 팝업을 제거하여 완벽한 결과물을 제공합니다.">
-    <meta name="keywords" content="히어캡처, Here Capture, 웹캡처, 스크린샷, 전체페이지캡처, 웹아카이빙, 디자인레퍼런스, URL캡처, 고화질캡처, AI캡처">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="Here Capture">
-    <link rel="canonical" href="https://here-capture.web.app/">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
 
-    <!-- Open Graph (OG) Tags -->
-    <meta property="og:title" content="히어캡처 | Here Capture - AI 기반 웹 아카이빙 솔루션">
-    <meta property="og:description" content="URL 입력만으로 웹페이지 전체를 고화질 이미지로 캡처, 아카이빙, 레퍼런스 수집하세요. AI가 스마트하게 광고와 팝업을 제거하여 완벽한 결과물을 제공합니다.">
-    <meta property="og:image" content="https://here-capture.web.app/og-image.svg">
-    <meta property="og:url" content="https://here-capture.web.app/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="히어캡처 | Here Capture">
-    <meta property="og:locale" content="ko_KR">
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/12.15.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/12.15.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/12.15.0/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="히어캡처 | Here Capture - AI 기반 웹 아카이빙 솔루션">
-    <meta name="twitter:description" content="URL 입력만으로 웹페이지 전체를 고화질 이미지로 캡처, 아카이빙, 레퍼런스 수집하세요.">
-    <meta name="twitter:image" content="https://here-capture.web.app/og-image.svg">
-    <meta name="twitter:url" content="https://here-capture.web.app/">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFYLJ304DB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-YFYLJ304DB');
-    </script>
-
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);  })(window, document, "clarity", "script", "x7rbye7kid");
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="style.css">
-    
-    <script src="https://pl30228233.effectivecpmnetwork.com/8c/ca/de/8ccade402d9ed064681e6901c06b2679.js" async></script>
-
-    <!-- JSON-LD for Rich Snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "히어캡처 | Here Capture",
-      "applicationCategory": "Utilities",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "KRW"
-      },
-      "description": "URL을 입력하여 웹페이지 전체를 고품질 이미지로 캡처하고 저장하는 AI 기반 웹 아카이빙 도구입니다. 광고 및 팝업 자동 제거, 풀페이지 캡처, 최근 내역 관리 등의 기능을 제공합니다.",
-      "url": "https://here-capture.web.app/",
-      "screenshot": "https://here-capture.web.app/og-image.svg"
-    }
-    </script>
-</head>
-<body class="midnight-aura">
-    <div class="background-texture"></div>
-    
-    <header class="main-header">
-        <div class="logo">히어캡처 | Here Capture</div>
-        <nav class="main-nav">
-            <a href="index.html" class="active" aria-label="홈 페이지로 이동">홈</a>
-            <a href="guides.html" aria-label="가이드 페이지로 이동">가이드</a>
-            <a href="about.html" aria-label="회사 소개 페이지로 이동">회사 소개</a>
-            <a href="contact.html" aria-label="문의하기 페이지로 이동">문의하기</a>
-        </nav>
-    </header>
-
-    <div class="main-layout">
-        <main class="hero-container">
-            <section class="hero-content">
-                <h1 class="hero-title">웹의 모든 순간을<br><span class="gradient-text">완벽한 한 장</span>으로 기록하세요</h1>
-                <p class="hero-subtitle">강력한 브라우저 엔진으로 자바스크립트 기반 사이트부터 전체 스크롤까지 픽셀 단위로 정확하게 캡처합니다.</p>
-                
-                <div class="capture-box">
-                    <input type="url" id="urlInput" placeholder="https://example.com" aria-label="캡처할 URL 입력">
-                    <button id="captureBtn" aria-label="URL 캡처 실행">지금 캡처하기</button>
-                </div>
-
-            </section>
-
-            <section id="resultArea" class="result-area hidden">
-                <div class="loading-spinner hidden" id="spinner"></div>
-                <div class="result-card">
-                    <img id="screenshotImg" src="" alt="캡처 결과 이미지">
-                    <div class="result-actions">
-                        <a id="downloadBtn" href="#" download="screenshot.png" class="btn-primary" aria-label="캡처 이미지 다운로드">이미지 다운로드</a>
-                        <button id="copyBtn" class="btn-secondary" aria-label="캡처 공유 링크 복사">링크 복사</button>
-                    </div>
-                </div>
-            </section>
-
-            <section id="history" class="history-section">
-                <h2 class="section-title">최근 캡처 내역</h2>
-                <div id="historyGrid" class="history-grid">
-                </div>
-            </section>
-
-            <section class="supported-sites">
-                <h2 class="section-title">주요 지원 커뮤니티</h2>
-                <p class="section-subtitle">뉴스, 블로그, 소셜 미디어 등 자주 사용하는 사이트들을 바로 캡처해 보세요.</p>
-                <div class="site-list">
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.naver.com';" role="button" aria-label="네이버 URL 입력">
-                        <div class="site-icon naver-icon">N</div>
-                        <span class="site-name">네이버</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.youtube.com';" role="button" aria-label="유튜브 URL 입력">
-                        <div class="site-icon youtube-icon"></div>
-                        <span class="site-name">유튜브</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.instiz.net';" role="button" aria-label="인스티즈 URL 입력">
-                        <div class="site-icon instiz-icon">i</div>
-                        <span class="site-name">인스티즈</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.ddanzi.com';" role="button" aria-label="딴지일보 URL 입력">
-                        <div class="site-icon ddanzi-icon">딴</div>
-                        <span class="site-name">딴지일보</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.clien.net';" role="button" aria-label="클리앙 URL 입력">
-                        <div class="site-icon clien-icon">C</div>
-                        <span class="site-name">클리앙</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.bobaedream.co.kr';" role="button" aria-label="보배드림 URL 입력">
-                        <div class="site-icon bobae-icon">B</div>
-                        <span class="site-name">보배드림</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.dmitory.com';" role="button" aria-label="디미토리 URL 입력">
-                        <div class="site-icon dmitory-icon">D</div>
-                        <span class="site-name">디미토리</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://cafe.daum.net/subdued20club';" role="button" aria-label="여성시대 URL 입력">
-                        <div class="site-icon woman-icon">여</div>
-                        <span class="site-name">여성시대</span>
-                    </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.teamblind.com';" role="button" aria-label="블라인드 URL 입력">
-                        <div class="site-icon blind-icon">b</div>
-                        <span class="site-name">블라인드</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="info-section">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h3>🚀 신속하고 정확한 렌더링</h3>
-                        <p>Chromium 기반 엔진을 사용하여 복잡한 애니메이션이나 동적 레이아웃도 실제 브라우저와 동일하게 캡처합니다.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>🖼️ 풀페이지 캡처 지원</h3>
-                        <p>화면에 보이는 부분만이 아닌, 페이지 하단 끝까지 모든 콘텐츠를 하나의 긴 이미지로 담아냅니다.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>🛡️ 스마트 팝업 제거</h3>
-                        <p>캡처를 방해하는 쿠키 배너, 광고 팝업 등을 지능적으로 식별하여 제거합니다.</p>
-                    </div>
-                </div>
-            </section>
-        </main>
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>Welcome</h2>
+      <h1>Firebase Hosting Setup Complete</h1>
+      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
+    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <div class="logo">히어캡처 | Here Capture</div>
-                <p>웹의 모든 순간을 완벽하게 기록하는 AI 기반 웹 아카이빙 솔루션입니다.</p>
-            </div>
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>주요 메뉴</h4>
-                    <a href="index.html">홈</a>
-                    <a href="guides.html">가이드</a>
-                    <a href="about.html">회사 소개</a>
-                    <a href="contact.html">문의하기</a>
-                </div>
-                <div class="link-group">
-                    <h4>정책</h4>
-                    <a href="privacy.html">개인정보 처리방침</a>
-                    <a href="terms.html">이용 약관</a>
-                </div>
-                <div class="link-group">
-                    <h4>소셜</h4>
-                    <a href="https://github.com/kukudassbussan/here-capture" target="_blank" rel="noopener noreferrer">GitHub</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 히어캡처 | Here Capture. All rights reserved.</p>
-        </div>
-    </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-    <script src="main.js" defer></script>
-</body>
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script>
+  </body>
 </html>
