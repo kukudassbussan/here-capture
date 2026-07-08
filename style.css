@@ -524,16 +524,64 @@
         background: #030305;
         padding: var(--space-xl) var(--space-md);
         border-top: 1px solid var(--glass-border);
-        margin-top: auto; /* Push footer to bottom */
+        margin-top: auto;
     }
 
     .footer-content {
         max-width: 1200px;
         margin: 0 auto;
-        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 60px;
+        margin-bottom: var(--space-xl);
     }
 
+    .footer-brand .logo {
+        margin-bottom: 20px;
+        display: inline-block;
+    }
 
+    .footer-brand p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        max-width: 300px;
+    }
+
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .link-group h4 {
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        font-weight: 700;
+    }
+
+    .link-group a {
+        display: block;
+        color: var(--text-secondary);
+        text-decoration: none;
+        margin-bottom: 12px;
+        transition: color 0.2s;
+        font-size: 0.95rem;
+    }
+
+    .link-group a:hover {
+        color: var(--accent-primary);
+    }
+
+    .footer-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: var(--space-lg);
+        border-top: 1px solid var(--glass-border);
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
 }
 
 @layer utilities {
@@ -582,14 +630,31 @@
     }
 }
 
+@media (max-width: 992px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    .footer-brand p {
+        margin: 0 auto;
+    }
+    .footer-links {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .main-header { padding: var(--space-md); }
     .main-nav { display: none; } /* Could add hamburger menu later */
-    .footer-content { grid-template-columns: 1fr; gap: 40px; }
-    .footer-links { grid-template-columns: repeat(2, 1fr); }
     .hero-title { font-size: 3rem; }
     .capture-box { flex-direction: column; padding: 15px; }
     .capture-box button { padding: 15px; }
     .site-list { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
     .site-card { width: 120px; height: 110px; padding: 15px; }
+    .footer-links {
+        grid-template-columns: 1fr; /* Stack link groups on mobile */
+        gap: 30px;
+        text-align: center;
+    }
 }
