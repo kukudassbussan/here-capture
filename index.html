@@ -68,10 +68,10 @@
     <header class="main-header">
         <div class="logo">히어캡처 | Here Capture</div>
         <nav class="main-nav">
-            <a href="index.html" class="active">홈</a>
-            <a href="guides.html">가이드</a>
-            <a href="about.html">회사 소개</a>
-            <a href="contact.html">문의하기</a>
+            <a href="index.html" class="active" aria-label="홈 페이지로 이동">홈</a>
+            <a href="guides.html" aria-label="가이드 페이지로 이동">가이드</a>
+            <a href="about.html" aria-label="회사 소개 페이지로 이동">회사 소개</a>
+            <a href="contact.html" aria-label="문의하기 페이지로 이동">문의하기</a>
         </nav>
     </header>
 
@@ -83,7 +83,7 @@
                 
                 <div class="capture-box">
                     <input type="url" id="urlInput" placeholder="https://example.com" aria-label="캡처할 URL 입력">
-                    <button id="captureBtn">지금 캡처하기</button>
+                    <button id="captureBtn" aria-label="URL 캡처 실행">지금 캡처하기</button>
                 </div>
 
             </section>
@@ -91,10 +91,10 @@
             <section id="resultArea" class="result-area hidden">
                 <div class="loading-spinner hidden" id="spinner"></div>
                 <div class="result-card">
-                    <img id="screenshotImg" src="" alt="캡처 결과">
+                    <img id="screenshotImg" src="" alt="캡처 결과 이미지">
                     <div class="result-actions">
-                        <a id="downloadBtn" href="#" download="screenshot.png" class="btn-primary">이미지 다운로드</a>
-                        <button id="copyBtn" class="btn-secondary">링크 복사</button>
+                        <a id="downloadBtn" href="#" download="screenshot.png" class="btn-primary" aria-label="캡처 이미지 다운로드">이미지 다운로드</a>
+                        <button id="copyBtn" class="btn-secondary" aria-label="캡처 공유 링크 복사">링크 복사</button>
                     </div>
                 </div>
             </section>
@@ -108,11 +108,11 @@
             <section class="supported-sites">
                 <h2 class="section-title">지원 가능 커뮤니티</h2>
                 <div class="site-list">
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.naver.com';">
+                    <div class="site-card" onclick="document.getElementById('urlInput').value='https-www.naver.com';" role="button" aria-label="네이버 URL 입력">
                         <div class="site-icon naver-icon">N</div>
                         <span class="site-name">네이버</span>
                     </div>
-                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.youtube.com';">
+                    <div class="site-card" onclick="document.getElementById('urlInput').value='https-www.youtube.com';" role="button" aria-label="유튜브 URL 입력">
                         <div class="site-icon youtube-icon">Y</div>
                         <span class="site-name">유튜브</span>
                     </div>
