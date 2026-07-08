@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Capture 기술 사양 및 엔진 아키텍처 - URL Capture</title>
-    <meta name="description" content="URL Capture의 고성능 캡처 엔진 기술 사양을 공개합니다. Headless 브라우저 최적화 및 스마트 렌더링 기술에 대해 알아보세요.">
+    <title>히어캡처 | Here Capture 기술 사양 및 엔진 아키텍처 - 히어캡처 | Here Capture</title>
+    <meta name="description" content="히어캡처 | Here Capture의 고성능 캡처 엔진 기술 사양을 공개합니다. Headless 브라우저 최적화 및 스마트 렌더링 기술에 대해 알아보세요.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
     <div class="background-texture"></div>
 
     <header class="main-header">
-        <div class="logo">URL Capture</div>
+        <div class="logo">히어캡처 | Here Capture</div>
         <nav class="main-nav">
             <a href="index.html">홈</a>
             <a href="guides.html">가이드</a>
@@ -43,9 +43,9 @@
         <article class="main-article">
             <header class="article-header">
                 <span class="category">기술 및 엔지니어링</span>
-                <h1>웹 캡처의 이면: URL Capture의 기술적 혁신과 사양</h1>
+                <h1>웹 캡처의 이면: 히어캡처 | Here Capture의 기술적 혁신과 사양</h1>
                 <div class="article-meta">
-                    <span class="author">By URL Capture Engineering Team</span>
+                    <span class="author">By 히어캡처 | Here Capture Engineering Team</span>
                     <span class="date">2024년 6월 15일</span>
                 </div>
             </header>
@@ -54,14 +54,14 @@
                 <p class="lead">단순히 웹사이트를 이미지로 저장하는 것은 쉬워 보일 수 있습니다. 하지만 현대의 자바스크립트 중심 웹(Modern Web)을 픽셀 단위로 정확하게 재현하는 것은 고도의 엔지니어링 기술을 요구합니다.</p>
 
                 <h2>1. Chromium 기반 Headless 렌더링 엔진</h2>
-                <p>URL Capture는 세계에서 가장 널리 사용되는 오픈 소스 브라우저 엔진인 Chromium을 기반으로 한 Headless 브라우저 환경에서 작동합니다. 이는 사용자가 실제 크롬(Chrome) 브라우저를 통해 보는 것과 100% 동일한 렌더링 결과물을 보장한다는 것을 의미합니다.</p>
+                <p>히어캡처는 세계에서 가장 널리 사용되는 오픈 소스 브라우저 엔진인 Chromium을 기반으로 한 Headless 브라우저 환경에서 작동합니다. 이는 사용자가 실제 크롬(Chrome) 브라우저를 통해 보는 것과 100% 동일한 렌더링 결과물을 보장한다는 것을 의미합니다.</p>
                 <ul>
                     <li><strong>V8 엔진 최적화:</strong> 복잡한 자바스크립트 연산과 애니메이션을 실시간으로 처리합니다.</li>
                     <li><strong>GPU 가속 지원:</strong> 하드웨어 가속을 활용하여 고해상도 이미지 생성 속도를 극대화했습니다.</li>
                 </ul>
                 
                 <h2>2. 지능형 대기 알고리즘 (Smart Wait)</h2>
-                <p>웹사이트마다 로딩 속도와 데이터 페칭(Fetching) 방식이 다릅니다. URL Capture는 단순히 특정 시간 동안 기다리는 대신, 네트워크 트래픽이 안정화되고 필수 DOM 요소가 모두 렌더링될 때까지 감시하는 'Smart Wait' 기술을 적용합니다. 이를 통해 '이미지가 덜 뜬' 상태의 캡처를 방지합니다.</p>
+                <p>웹사이트마다 로딩 속도와 데이터 페칭(Fetching) 방식이 다릅니다. 히어캡처는 단순히 특정 시간 동안 기다리는 대신, 네트워크 트래픽이 안정화되고 필수 DOM 요소가 모두 렌더링될 때까지 감시하는 'Smart Wait' 기술을 적용합니다. 이를 통해 '이미지가 덜 뜬' 상태의 캡처를 방지합니다.</p>
 
                 <div class="highlight-box">
                     <h3>주요 기술 사양 요약</h3>
@@ -92,7 +92,7 @@
                 <p>모든 캡처 요청은 샌드박스(Sandbox) 환경에서 격리되어 처리됩니다. 요청 시 사용된 URL 데이터와 생성된 이미지는 영구 저장되지 않으며, 전송 즉시 메모리에서 소거되는 'Stateless' 방식을 채택하여 사용자의 보안을 최우선으로 합니다.</p>
 
                 <h2>지속적인 발전</h2>
-                <p>웹 표준은 매일 변합니다. URL Capture 엔지니어링 팀은 새로운 CSS 속성이나 자바스크립트 프레임워크의 변화에 기민하게 대응하며 엔진을 지속적으로 업데이트하고 있습니다. 우리의 목표는 단순히 도구를 제공하는 것이 아니라, 웹의 완벽한 디지털 쌍둥이(Digital Twin)를 만드는 것입니다.</p>
+                <p>웹 표준은 매일 변합니다. 히어캡처 엔지니어링 팀은 새로운 CSS 속성이나 자바스크립트 프레임워크의 변화에 기민하게 대응하며 엔진을 지속적으로 업데이트하고 있습니다. 우리의 목표는 단순히 도구를 제공하는 것이 아니라, 웹의 완벽한 디지털 쌍둥이(Digital Twin)를 만드는 것입니다.</p>
             </section>
         </article>
     </main>
@@ -102,7 +102,7 @@
             <a href="privacy.html">개인정보 처리방침</a>
             <a href="terms.html">이용 약관</a>
         </div>
-        <p>&copy; 2024 URL Capture. All rights reserved.</p>
+        <p>&copy; 2024 히어캡처 | Here Capture. All rights reserved.</p>
     </footer>
 </body>
 </html>
