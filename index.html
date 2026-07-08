@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- SEO Meta Tags -->
+    <title>URL Capture - 고화질 전체 웹페이지 스크린샷 캡처 도구</title>
+    <meta name="description" content="URL 하나로 웹페이지 전체를 고화질 이미지로 캡처하세요. 디자이너와 개발자를 위한 최고의 웹 아카이빙 및 레퍼런스 수집 도구입니다.">
+    <meta name="keywords" content="웹캡처, 스크린샷, 전체페이지캡처, 웹아카이빙, 디자인레퍼런스, URL캡처, 고화질캡처">
+    <link rel="canonical" href="https://here-capture.web.app/">
+
+    <!-- Open Graph (OG) Tags -->
+    <meta property="og:title" content="URL Capture - 고화질 전체 웹페이지 스크린샷 캡처 도구">
+    <meta property="og:description" content="URL 하나로 웹페이지 전체를 고화질 이미지로 캡처하세요. 디자이너와 개발자를 위한 최고의 웹 아카이빙 및 레퍼런스 수집 도구입니다.">
+    <meta property="og:image" content="https://here-capture.web.app/og-image.svg">
+    <meta property="og:url" content="https://here-capture.web.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="URL Capture">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="URL Capture - 고화질 전체 웹페이지 스크린샷 캡처 도구">
+    <meta name="twitter:description" content="URL 하나로 웹페이지 전체를 고화질 이미지로 캡처하세요.">
+    <meta name="twitter:image" content="https://here-capture.web.app/og-image.svg">
+    <meta name="twitter:url" content="https://here-capture.web.app/">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFYLJ304DB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YFYLJ304DB');
+    </script>
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);  })(window, document, "clarity", "script", "x7rbye7kid");
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.min.css">
+    
+    <script src="https://pl30228233.effectivecpmnetwork.com/8c/ca/de/8ccade402d9ed064681e6901c06b2679.js" async></script>
+
+    <!-- JSON-LD for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "URL Capture",
+      "applicationCategory": "BrowserApplication",
+      "operatingSystem": "Any",
+      "description": "고화질 전체 웹페이지 스크린샷 캡처 도구",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      }
+    }
+    </script>
+</head>
+<body class="midnight-aura">
+    <div class="background-texture"></div>
+    
+    <header class="main-header">
+        <div class="logo">URL Capture</div>
+        <nav class="main-nav">
+            <a href="index.html" class="active">홈</a>
+            <a href="guides.html">가이드</a>
+            <a href="about.html">회사 소개</a>
+            <a href="contact.html">문의하기</a>
+        </nav>
+    </header>
+
+    <div class="main-layout">
+        <main class="hero-container">
+            <section class="hero-content">
+                <h1 class="hero-title">웹의 모든 순간을<br><span class="gradient-text">완벽한 한 장</span>으로 기록하세요</h1>
+                <p class="hero-subtitle">강력한 브라우저 엔진으로 자바스크립트 기반 사이트부터 전체 스크롤까지 픽셀 단위로 정확하게 캡처합니다.</p>
+                
+                <div class="capture-box">
+                    <input type="url" id="urlInput" placeholder="https://example.com" aria-label="캡처할 URL 입력">
+                    <button id="captureBtn">지금 캡처하기</button>
+                </div>
+
+            </section>
+
+            <section id="resultArea" class="result-area hidden">
+                <div class="loading-spinner hidden" id="spinner"></div>
+                <div class="result-card">
+                    <img id="screenshotImg" src="" alt="캡처 결과">
+                    <div class="result-actions">
+                        <a id="downloadBtn" href="#" download="screenshot.png" class="btn-primary">이미지 다운로드</a>
+                        <button id="copyBtn" class="btn-secondary">링크 복사</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="history" class="history-section">
+                <h2 class="section-title">최근 캡처 내역</h2>
+                <div id="historyGrid" class="history-grid">
+                </div>
+            </section>
+
+            <section class="supported-sites">
+                <h2 class="section-title">지원 가능 커뮤니티</h2>
+                <div class="site-list">
+                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.naver.com';">
+                        <div class="site-icon naver-icon">N</div>
+                        <span class="site-name">네이버</span>
+                    </div>
+                    <div class="site-card" onclick="document.getElementById('urlInput').value='https://www.youtube.com';">
+                        <div class="site-icon youtube-icon">Y</div>
+                        <span class="site-name">유튜브</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🚀 신속하고 정확한 렌더링</h3>
+                        <p>Chromium 기반 엔진을 사용하여 복잡한 애니메이션이나 동적 레이아웃도 실제 브라우저와 동일하게 캡처합니다.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>🖼️ 풀페이지 캡처 지원</h3>
+                        <p>화면에 보이는 부분만이 아닌, 페이지 하단 끝까지 모든 콘텐츠를 하나의 긴 이미지로 담아냅니다.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>🛡️ 스마트 팝업 제거</h3>
+                        <p>캡처를 방해하는 쿠키 배너, 광고 팝업 등을 지능적으로 식별하여 제거합니다.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 URL Capture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.min.js" defer></script>
+</body>
+</html>
