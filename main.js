@@ -1,5 +1,5 @@
 /**
- * URL Capture - Main Logic
+ * 사이트 캡쳐 - Main Logic
  * Uses a Cloudflare Worker to proxy Microlink API calls.
  */
 
