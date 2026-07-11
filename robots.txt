@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://here-capture.web.app/sitemap.xml
+Sitemap: https://here-capture-site.com/sitemap.xml
