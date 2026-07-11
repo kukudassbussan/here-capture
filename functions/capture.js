@@ -1,4 +1,3 @@
-
 const API_BASE = 'https://api.microlink.io/';
 
 export async function onRequest(context) {
@@ -17,11 +16,7 @@ export async function onRequest(context) {
     const microlinkUrl = `${API_BASE}?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=false&fullPage=true&waitFor=3000&animations=true&hide=cookie-banner,.modal,.popup,.overlay,.ad-container,#ad-slot&viewport.width=1920&viewport.deviceScaleFactor=2`;
 
     // Fetch the screenshot from Microlink
-    const response = await fetch(microlinkUrl, {
-        headers: {
-            'x-api-key': context.env.MICROLINK_API_KEY // If you have an API key
-        }
-    });
+    const response = await fetch(microlinkUrl);
     
     const data = await response.json();
 
