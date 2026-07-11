@@ -1,8 +1,8 @@
-# Blueprint: 사이트 캡쳐 | Site Capture
+# Blueprint: 여기 캡쳐 | Here Capture
 
 ## Overview
 
-사이트 캡쳐는 사용자가 지정한 URL의 전체 웹페이지를 캡처하여 고해상도 이미지로 제공하는 웹 애플리케이션입니다. 복잡한 설정이나 브라우저 확장 프로그램 설치 없이, URL을 입력하고 버튼을 클릭하는 것만으로 웹페이지 전체를 손쉽게 저장할 수 있습니다.
+여기 캡쳐는 사용자가 지정한 URL의 전체 웹페이지를 캡처하여 고해상도 이미지로 제공하는 웹 애플리케이션입니다. 복잡한 설정이나 브라우저 확장 프로그램 설치 없이, URL을 입력하고 버튼을 클릭하는 것만으로 웹페이지 전체를 손쉽게 저장할 수 있습니다.
 
 ## Core Features
 
@@ -23,22 +23,19 @@
 
 ---
 
-## Current Task: 프로젝트 이름 변경 (히어캡처 -> 사이트 캡쳐)
+## Current Task: 프로젝트 이름 변경
 
-**목표:** 프로젝트의 공식 명칭을 '히어캡처 | Here Capture'에서 '사이트 캡쳐 | Site Capture'로 변경하고, 관련된 모든 파일을 수정합니다.
+**목표:** 프로젝트의 이름을 '사이트 캡쳐 | Site Capture'에서 '여기 캡쳐 | Here Capture'로 전체적으로 변경합니다.
 
 **변경 내역:**
 
 1.  **HTML 파일 수정 (`index.html`, `about.html`, `contact.html`, `guides.html`, `privacy.html`, `terms.html`):**
-    -   `<title>` 태그, 로고 텍스트, 푸터 등 모든 '히어캡처 | Here Capture' 텍스트를 '사이트 캡쳐 | Site Capture'로 변경했습니다.
-    -   메타 태그(description, keywords)의 내용도 새로운 이름에 맞게 업데이트했습니다.
+    -   `<title>`, `<meta>`, `<h1>`, `<a>`, `<footer>` 등 모든 페이지의 텍스트와 메타데이터에서 '사이트 캡쳐'와 'Site Capture'를 '여기 캡쳐'와 'Here Capture'로 변경했습니다.
+    -   로고 텍스트를 '여기 캡쳐 | Here Capture'로 업데이트했습니다.
+    -   저작권 정보를 '© 2024 여기 캡쳐 | Here Capture'로 수정했습니다.
 
-2.  **`og-image.svg` 파일 수정:**
-    -   Open Graph 이미지에 표시되는 프로젝트 이름을 'Site Capture'로 변경하고, 부제를 'AI 기반 웹 아카이빙 솔루션'으로 업데이트했습니다.
+2.  **Open Graph 이미지 수정 (`og-image.svg`):**
+    -   SVG 파일 내의 텍스트를 'Site Capture'에서 'Here Capture'로 변경하여 소셜 미디어 공유 시 표시되는 이미지를 업데이트했습니다.
 
-3.  **Git 커밋 및 푸시:**
-    -   모든 변경 사항을 스테이징하고, "히어캡처 | Here Capture를 모두 사이트 캡쳐 | Site Capture로 변경"이라는 메시지와 함께 커밋했습니다.
-    -   변경 사항을 원격 저장소(GitHub)에 푸시하여 동기화했습니다.
-
-4.  **`blueprint.md` 업데이트:**
+3.  **`blueprint.md` 업데이트:**
     -   현재 작업 내역을 반영하여 `blueprint.md` 파일을 업데이트했습니다.
