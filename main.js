@@ -47,7 +47,7 @@ async function handleCapture() {
     try {
         const targetUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
         // Call our own serverless function proxy
-        const proxyUrl = `/functions/capture?url=${encodeURIComponent(targetUrl)}`;
+        const proxyUrl = `/capture?url=${encodeURIComponent(targetUrl)}`;
         
         const response = await fetch(proxyUrl);
         const data = await response.json();
